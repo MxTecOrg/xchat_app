@@ -9,8 +9,9 @@ app.script( PATH.js + "/sections/s-contacts.js");
 app.script( PATH.js + "/sections/s-welcome.js");
 app.script( PATH.js + "/sections/s-login.js");
 
+
+
 function OnStart(){
-  java.setDebugMode(false);
   app.screen = null;
   
   // load theme //
@@ -35,14 +36,32 @@ function OnStart(){
   }
 }
 
-function onBackPressed(){
-  app.screen.close();
-}
-
 function InitMainApp(){
   s_welcome = null; s_login = null;
     
   s_main(); // main layout init //
   s_drawer(); // drawer init //
   s_contacts(); // contacts layout init //
+}
+
+
+  /*//////////////////////*/
+ /*/ Device back-button /*/
+/*//////////////////////*/
+function OnBack(){
+  app.screen.close();
+}
+
+  /*//////////////////////////*/
+ /*/ Send app to background /*/
+/*//////////////////////////*/
+function OnPause(){}
+function OnResume(){}
+
+
+  /*/////////////////////////*/
+ /*/ Webview console error /*/
+/*/////////////////////////*/
+function OnError(error){
+  alert(error);
 }
