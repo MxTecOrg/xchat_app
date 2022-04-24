@@ -68,11 +68,19 @@ public class MainActivity extends Activity {
 	protected void onPause()
 	{
 		// TODO: Implement this method
-		super.onDestroy();
-		startService(new Intent(this, BgService.class));
+		super.onPause();
+		//startService(new Intent(this, BgService.class));
+		webview.loadUrl("javascript:OnPause(true);")
 	}
 	
-	
+	@Override
+	protected void onResume()
+	{
+		// TODO: Implement this method
+		super.onResume();
+		//startService(new Intent(this, BgService.class));
+		webview.loadUrl("javascript:OnResume(true);")
+	}
 
 	@Override
 	public void onBackPressed()
@@ -80,7 +88,7 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		//super.onBackPressed();
 		
-		webview.loadUrl("javascript:onBackPressed(true);");
+		webview.loadUrl("javascript:OnBack(true);");
 	}
 	
 	
@@ -99,7 +107,7 @@ public class MainActivity extends Activity {
 		
 		@Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-             webview.loadUrl("javascript:onWebviewConsole(\"" +consoleMessage.message() + " -- From line "
+             webview.loadUrl("javascript:OnError(\"" +consoleMessage.message() + " -- From line "
 				  + consoleMessage.lineNumber() + " of "
 				  + consoleMessage.sourceId() + "\");");
 			Log.i("Console" , consoleMessage.message() + " -- From line "
