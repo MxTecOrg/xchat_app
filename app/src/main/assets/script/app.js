@@ -1,4 +1,5 @@
 app = {};
+let spam = null;
 
 // import //
 app.script = function( url, callback ) {
@@ -11,6 +12,7 @@ app.script = function( url, callback ) {
   document.head.appendChild(script);
   script = null;
 };
+
 
 // loading screen //
 app.loading = {
@@ -54,6 +56,7 @@ app.loading = {
   }
 };
 
+
 // enable/disable user interaction //
 app.wall = {
   init: function(){
@@ -75,6 +78,7 @@ app.wall = {
   hidden: function(){ this.layout.style.display = "none" }
 };
 
+
 // database //
 app.save_data = function(place, data) {
   data = JSON.stringify({d: data});
@@ -87,11 +91,21 @@ app.load_data = function (place, def) {
 };
 app.remove_data = function (place) {localStorage.removeItem(place)};
 
+
+// alert //
+app.alert = function (txt) {
+  spam.alert({
+    title: null,
+    text: txt
+  });
+};
+
 // app init //
 app.start = function(){
   document.head = document.getElementsByTagName("head")[0];
   document.body = document.getElementsByTagName("body")[0];
   app.loading.init();
+  spam = new Spam();
   app.wall.init();
   app.isStart = true;
   if(window.OnStart) OnStart();

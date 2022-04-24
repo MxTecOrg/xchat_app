@@ -2,9 +2,11 @@
   /* theme */
   --app-accent-color: 0;
   --app-accent-font-color: 0;
+  
   --app-primary-color: 0;
   --app-primary-font-color: 0;
-  --app-primary-dark-color: 0;
+  --app-primary-font-lightcolor: 0;
+  
   --app-control-color: 0;
   --app-control-lightcolor: 0;
 }

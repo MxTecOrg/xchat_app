@@ -183,9 +183,12 @@ function s_login () {
           app.save_data("user-data", USER);
           _change(verify_layout, register_layout);
         }
-        else alert(data.data)
+        else app.alert(data.data)
       },
-      error: function(s){ alert("Error " + s) }
+      error: function(s){ 
+        app.alert("Error " + s);
+        app.loading.hidden();
+      }
     });
   }
   
@@ -210,12 +213,13 @@ function s_login () {
           connect();
           s_login.ok();
         }
-        else {
-          app.loading.hidden();
-          alert(data.data);
-        }
+        else app.alert(data.data);
+        app.loading.hidden();
       },
-      error: function(s){ alert("Error " + s) }
+      error: function(s){ 
+        app.alert("Error " + s);
+        app.loading.hidden();
+      }
     })
   };
   
@@ -234,12 +238,14 @@ function s_login () {
           token: input.value
         }, 
         success: function(data) {
-          if(data.status) {
-            s_login.ok()
-          }
-          else alert(data.data);
+          if(data.status) s_login.ok();
+          else app.alert(data.data);
+          app.loading.hidden();
         },
-        error: function(s){ alert("Error " + s) }
+        error: function(s){
+          app.alert("Error " + s);
+          app.loading.hidden();
+        }
       });
     }
   };
@@ -248,18 +254,21 @@ function s_login () {
   verify_re.onclick = function(){
     app.loading.show();
     verify_re.style.display = "none";
+    
     server.process({
       url: URL.auth + "/resendToken",
       data: {email: USER.email},
       data_type: "json",
       method: "POST",
       success: function(data){
+        if(data.status) app.alert("enviado");
+        else app.alert(data.data);
         app.loading.hidden();
-        if(data.status) {
-          alert("enviado")
-        } else alert(data.data);
       },
-      error: function(s){ alert("Error " + s) }
+      error: function(s){ 
+        app.alert("Error " + s);
+        app.loading.hidden();
+      }
     })
   }
   
@@ -274,5 +283,5 @@ s_login.ok = function(){
   s_login.close();
   InitMainApp();
   app.save_data("authenticated", true);
-  //app.loading.hidden();
+  app.loading.hidden();
 }

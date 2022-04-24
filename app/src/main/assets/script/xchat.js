@@ -26,7 +26,7 @@ function OnStart(){
   if( app.load_data("authenticated") ) {
       app.loading.show();
       InitMainApp();
-      connect();
+      app.loading.hidden();
   }
   else {
     s_welcome();
