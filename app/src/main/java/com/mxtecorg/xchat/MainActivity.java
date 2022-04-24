@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		super.onPause();
 		//startService(new Intent(this, BgService.class));
-		webview.loadUrl("javascript:OnPause(true);")
+		webview.loadUrl("javascript:OnPause(true);");
 	}
 	
 	@Override
@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		super.onResume();
 		//startService(new Intent(this, BgService.class));
-		webview.loadUrl("javascript:OnResume(true);")
+		webview.loadUrl("javascript:OnResume(true);");
 	}
 
 	@Override
