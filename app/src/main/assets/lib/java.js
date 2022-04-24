@@ -252,8 +252,11 @@ java.setAppColor = async (statusBar, navBar) => {
 /******************
 *     STATICS     *
 *******************/
-
+try{
 java.STATICS = JSON.parse(JSINTERFACE.getStatics());
+}catch(err){
+    java.STATICS = {};
+}
 
 /************************
 * Notification Builder *
