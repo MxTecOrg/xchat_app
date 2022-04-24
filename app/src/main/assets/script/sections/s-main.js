@@ -6,3 +6,10 @@ function s_main () {
   
   s_main.layout = lay;
 }
+
+s_main.open = function(){};
+s_main.close = function(){
+  app.confirm("¿Seguro que desea salir?", function(b){
+    if(b) java.exit();
+  });
+};

@@ -10,5 +10,11 @@ function s_drawer () {
   });
 }
 
-s_drawer.open = function(){ s_drawer.layout.open() }
-s_drawer.close = function(){ s_drawer.layout.close() }
+s_drawer.open = function(){ 
+  s_drawer.layout.open();
+  app.screen = s_drawer;
+};
+s_drawer.close = function(){ 
+  s_drawer.layout.close();
+  app.screen = s_main;
+}

@@ -9,10 +9,13 @@ theme.light = function(){
   theme.is = "light";
   theme.root(
     "--app-accent-color: #ffffff;" +
+    "--app-accent-lightcolor: #dddddd;" +
     "--app-accent-font-color: #000000;" +
+    
     "--app-primary-color: #1d6071;" +
     "--app-primary-font-color: #ffffff;" +
     "--app-primary-font-lightcolor: #aaaaaa;" +
+    
     "--app-control-color: #0000ff;" +
     "--app-control-lightcolor: #aaaaff;"
   );
@@ -24,10 +27,13 @@ theme.dark = function(){
   theme.is = "dark";
   theme.root(
     "--app-accent-color: #272727;" +
+    "--app-accent-lightcolor: #444444;" +
     "--app-accent-font-color: #eeeeee;" +
+    
     "--app-primary-color: #565656;" +
     "--app-primary-font-color: #ffffff;" +
     "--app-primary-font-lightcolor: #aaaaaa;" +
+    
     "--app-control-color: #ffffff;" +
     "--app-control-lightcolor: #999999;"
   );

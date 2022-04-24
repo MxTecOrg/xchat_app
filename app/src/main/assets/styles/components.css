@@ -4,12 +4,18 @@
 @import url("./components/fab.css");
 @import url("./components/edit-text.css");
 @import url("./components/tab-layout.css");
-@import url("./components/list-layout.css");
+@import url("./components/list-view.css");
 
 * {
   margin: 0;
   padding: 0;
   user-select: none;
+}
+
+button:focus, input:focus {
+  outline: 0;
+  outline-color: transparent;
+  outline-style: none;
 }
 
 body {

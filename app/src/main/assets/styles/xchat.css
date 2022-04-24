@@ -1,4 +1,7 @@
 :root {
+  /* static */
+  --tool-bar-shadow: 0 6px 10px -5px rgba(0,0,0,0.5);
+  
   /* theme */
   --app-accent-color: 0;
   --app-accent-font-color: 0;

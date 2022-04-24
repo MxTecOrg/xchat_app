@@ -93,11 +93,21 @@ app.remove_data = function (place) {localStorage.removeItem(place)};
 
 
 // alert //
-app.alert = function (txt) {
+app.alert = function (txt, callback) {
   spam.alert({
     title: null,
-    text: txt
+    text: txt,
+    action: callback
   });
+};
+
+// confirm //
+app.confirm = function (txt, callback) {
+  spam.confirm({
+    title: null,
+    text: txt,
+    action: callback
+  })
 };
 
 // app init //

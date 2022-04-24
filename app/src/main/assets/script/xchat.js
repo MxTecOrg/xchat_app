@@ -11,6 +11,7 @@ app.script( PATH.js + "/sections/s-login.js");
 
 function OnStart(){
   java.setDebugMode(false);
+  app.screen = null;
   
   // load theme //
   theme();
@@ -32,6 +33,10 @@ function OnStart(){
     s_welcome();
     s_login();
   }
+}
+
+function onBackPressed(){
+  app.screen.close();
 }
 
 function InitMainApp(){

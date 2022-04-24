@@ -23,7 +23,7 @@ function s_login () {
   register_layout.dom.set("class", "login-layout");
   register_head.dom.set("class", "login-layout--head");
   register_body.dom.set("class", "login-layout--body");
-  register_submit.dom.set("class", "login-layout--submit")
+  register_submit.dom.set("class", "login-layout--submit");
   
   register_head.innerText = "Registrarse";
   register_submit.innerText = "Enviar";
@@ -61,8 +61,6 @@ function s_login () {
   verify_head.dom.set("class", "login-layout--head");
   verify_head.innerText = "Verificación";
   verify_body.dom.set("class", "login-layout--body");
-  verify_txt.innerText = "Se te a enviado un token de verificación a tu correo " + USER.email;
-  
   
   /* components edittext */
   let r_name = create_input("Usuario:");
@@ -180,6 +178,7 @@ function s_login () {
           USER.user = req.username;
           USER.email = req.email;
           USER.pass = req.password;
+          verify_txt.innerText = "Se te a enviado un token de verificación a tu correo " + USER.email;
           app.save_data("user-data", USER);
           _change(verify_layout, register_layout);
         }

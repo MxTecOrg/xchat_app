@@ -13,7 +13,6 @@
     
     <script>
       function onWebviewConsole(str){alert(str)}
-      function onBackPressed(){}
     </script>
     
     <script src="./script/app.js"></script>
@@ -78,15 +77,16 @@
         </div>
       </div>
       
-      <div class="list-layout">
-        <li>
+      <div class="list-view">
+        <li class="list-view--l">
           <span><i class="fa fa-users"></i></span>
-          <h3> Crear Grupo </h3>
+          <div> Crear Grupo </div>
         </li>
-        <li>
+        <li class="list-view--l">
           <span><i class="fa fa-user"></i></span>
-          <h3>Añadir contacto</h3>
+          <div>Añadir contacto</div>
         </li>
+        <li class="list-view--divider"></li>
       </div>
     </div>
     
