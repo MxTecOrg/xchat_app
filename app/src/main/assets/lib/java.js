@@ -203,6 +203,7 @@ java.hasInternet = (path) => {
 /*********************
 *   Set Debug Mode   *
 **********************/
+/*
 
 var DEBUG = {
     mode: false,

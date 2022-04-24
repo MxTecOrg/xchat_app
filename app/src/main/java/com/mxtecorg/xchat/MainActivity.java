@@ -63,6 +63,8 @@ public class MainActivity extends Activity {
 		
 		
 	}
+	
+	public boolean isLoaded = false;
 
 	@Override
 	protected void onPause()
@@ -70,7 +72,7 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		super.onPause();
 		//startService(new Intent(this, BgService.class));
-		webview.loadUrl("javascript:OnPause(true);");
+		if(isLoaded) webview.loadUrl("javascript:OnPause(true);");
 	}
 	
 	@Override
@@ -79,7 +81,7 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		super.onResume();
 		//startService(new Intent(this, BgService.class));
-		webview.loadUrl("javascript:OnResume(true);");
+		if(isLoaded) webview.loadUrl("javascript:OnResume(true);");
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		//super.onBackPressed();
 		
-		webview.loadUrl("javascript:OnBack(true);");
+		if(isLoaded) webview.loadUrl("javascript:OnBack(true);");
 	}
 	
 	
@@ -98,6 +100,14 @@ public class MainActivity extends Activity {
 		private WebView webview;
 		WebChromeCli(WebView webview){
 			this.webview = webview;
+		}
+		
+		
+		@Override
+		public void onProgressChanged(WebView view, int newProgress){
+		    // TODO: Implement this method
+			if(newProgress == 100) isLoaded = true;
+			super.onProgressChanged(view, newProgress);
 		}
 		
 		@Override
@@ -110,9 +120,9 @@ public class MainActivity extends Activity {
              webview.loadUrl("javascript:OnError(\"" +consoleMessage.message() + " -- From line "
 				  + consoleMessage.lineNumber() + " of "
 				  + consoleMessage.sourceId() + "\");");
-			Log.i("Console" , consoleMessage.message() + " -- From line "
+			/*Log.i("Console" , consoleMessage.message() + " -- From line "
 				  + consoleMessage.lineNumber() + " of "
-				  + consoleMessage.sourceId());
+				  + consoleMessage.sourceId());*/
             return super.onConsoleMessage(consoleMessage);
         }
 		
