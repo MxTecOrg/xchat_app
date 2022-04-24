@@ -24,6 +24,8 @@ import androidx.core.app.*;
 import android.app.*;
 import android.content.*;
 import android.os.*;
+import java.io.*;
+import android.media.*;
 
 public class MainActivity extends Activity { 
     public ValueCallback<Uri[]> uploadMessage;
@@ -61,10 +63,28 @@ public class MainActivity extends Activity {
 		webview.addJavascriptInterface(jsInterface, "JSInterface");
 		webview.setWebChromeClient(new WebChromeCli(webview));
 		
-		
 	}
 	
 	public boolean isLoaded = false;
+	
+	public void playSound(Context context) throws IllegalArgumentException, 
+	SecurityException, 
+	IllegalStateException,
+	IOException {
+
+		Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		MediaPlayer mMediaPlayer = new MediaPlayer();
+		mMediaPlayer.setDataSource(context, soundUri);
+		final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+		if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+			mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+			// Uncomment the following line if you aim to play it repeatedly
+			// mMediaPlayer.setLooping(true);
+			mMediaPlayer.prepare();
+			mMediaPlayer.start();
+		}
+	}
 
 	@Override
 	protected void onPause()

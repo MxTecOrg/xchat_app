@@ -292,3 +292,10 @@ java.noti = {
         JSINTERFACE.deleteNoti(noti_id);
     }
 }
+
+
+/****************
+ * System Sound *
+ ****************/
+ 
+ java.soundClick = async() => JSINTERFACE.sound_click();
