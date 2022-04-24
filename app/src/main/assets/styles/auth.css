@@ -1,0 +1,98 @@
+/* WELCOME SCREEN */
+#welcome-layout {
+  display: flex;
+  flex-direction: column;
+}
+  #welcome-layout--top {
+    flex-grow: 5;
+    width: 100vw;
+    position: relative;
+    
+    overflow-x: auto;
+    white-space: nowrap;
+    color: var(--app-accent-font-color);
+  }
+  .welcome-section {
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #welcome-layout--bottom {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    filter: opacity(0);
+    
+    position: relative;
+    padding: 0 30px 0 30px;
+    color: var(--app-control-color);
+  }
+  #welcome-layout--bottom > div.circle-disabled {
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    margin: 0 5px 0 5px;
+    border: solid 3px;
+  }
+  #welcome-progress > .circle-enabled {}
+  .w-toggle {
+    position: absolute;
+    top: 7px; right: 7px;
+    z-index: 1;
+    color: var(--app-control-color);
+  }
+  
+/* LOGIN */
+#login-layout {
+  
+}
+.login-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--app-accent-font-color);
+}
+.login-layout--head {
+  background-color: var(--app-accent-color);
+  transform: translateY(10px);
+  padding: 0 10px 0 10px;
+}
+.login-layout--body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 20px;
+  background: var(--app-accent-color);
+  
+  border: solid var(--app-control-color);
+  border-radius: 20px;
+}
+.login-layout--submit {
+  background: none;
+  color: var(--app-control-color);
+  font-weight: bold;
+  border: solid var(--app-control-color);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  
+  padding: 10px 30px;
+  margin-top: 7px;
+}
+.login-toggle {
+  z-index: 3;
+  font-size: 14px;
+  margin-top: 15px;
+  color: var(--app-control-color);
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "artifactId": "appcompat",
+    "excludes": [],
+    "groupId": "androidx.appcompat",
+    "scope": "compile",
+    "versionName": "1.3.0"
+  }
+]

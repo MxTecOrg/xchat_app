@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light">
+        <item name="android:colorPrimary">@color/colorAccent</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">?android:colorPrimary</item>
+		<item name="android:statusBarColor">?android:colorPrimary</item>
+		<item name="windowActionBar">false</item> 
+		<item name="windowNoTitle">true</item>
+	</style>
+	<style name="AppThemeDark" parent="Theme.AppCompat.Light">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">?android:colorPrimary</item>
+		<item name="android:statusBarColor">?android:colorPrimary</item>
+		<item name="windowActionBar">false</item> 
+		<item name="windowNoTitle">true</item>
+	</style>
+</resources>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="es">
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   
+    <script src="./lib/drawerbuild.min.js"></script>
+    <script src="./lib/ajax-send.min.js"></script>
+    <script src="./lib/dom.min.js"></script>
+    <script src="./lib/java.js"></script>
+    
+    <script>
+      function onWebviewConsole(str){alert(str)}
+      function onBackPressed(){}
+    </script>
+    
+    <script src="./script/app.js"></script>
+    <script src="./script/config.js"></script>
+    <script src="./script/xchat.js"></script>
+    
+    <link rel='stylesheet' href='./lib/font-awesome/css/font-awesome.min.css'/>
+    <link rel='stylesheet' href='./styles/app.css'/>
+    <link rel='stylesheet' href='./styles/components.css'/>
+    <link rel='stylesheet' href='./styles/xchat.css'/>
+    <link rel='stylesheet' href='./styles/auth.css'/>
+  </head>
+  
+  <body onload="app.start()">
+    
+    
+    <!-- <LAY> MAIN -->
+    <div id="main-layout" class="absolute-layout">
+      
+      <div class="tool-bar">
+        <div class="tool-bar--left">
+          <i id="btn-open-drawer" class="fa fa-bars fa-lg"></i>
+        </div>
+        <div class="tool-bar--center">
+          <h2> XChat </h2>
+        </div>
+        <div class="tool-bar--right">
+          <i id="btn-open-main-menu" class="fa fa-ellipsis-v fa-lg"></i>
+        </div>
+      </div>
+      
+      <!-- TAB NAV -->
+      <div class="tab-layout" id="tabs-main">
+        <div class="tab-layout--nav">
+          <button> CHATS </button>
+          <button> CANALES </button>
+          <button> BOTS </button>
+          <span class="tab-layout--line"></span>
+        </div>
+        <div class="tab-layout--body">
+          <div id="tab-chats-layout"></div>
+          <div id="tab-canals-layout"></div>
+          <div id="tab-bots-layout"></div>
+        </div>
+      </div>
+  
+      
+      
+      <div class="fab" onclick="s_contacts.open()"> <i class="fa fa-comment fa-lg"></i> </div>
+    </div>
+    
+    <!-- <LAY> CONTACTS LIST -->
+    <div id="contacts-layout">
+      <div class="tool-bar">
+        <div class="tool-bar--left">
+          <i id="back-contacts-lay" class="fa fa-arrow-left fa-lg" onclick="s_contacts.close()"></i>
+        </div>
+        
+        <div class="tool-bar--center"><h2> Contactos </h2></div>
+        
+        <div class="tool-bar--right">
+          <i class="fa fa-search fa-lg"></i>
+        </div>
+      </div>
+      
+      <div class="list-layout">
+        <li>
+          <span><i class="fa fa-users"></i></span>
+          <h3> Crear Grupo </h3>
+        </li>
+        <li>
+          <span><i class="fa fa-user"></i></span>
+          <h3>Añadir contacto</h3>
+        </li>
+      </div>
+    </div>
+    
+    <!-- DRAWER -->
+    <div id="app-drawer">
+      <div class="tool-bar"></div>
+    </div>
+    
+  </body>
+</html>

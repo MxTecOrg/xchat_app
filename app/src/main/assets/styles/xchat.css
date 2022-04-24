@@ -1,0 +1,26 @@
+:root {
+  /* theme */
+  --app-accent-color: 0;
+  --app-accent-font-color: 0;
+  --app-primary-color: 0;
+  --app-primary-font-color: 0;
+  --app-primary-dark-color: 0;
+  --app-control-color: 0;
+  --app-control-lightcolor: 0;
+}
+
+#main-layout {
+  display: none
+}
+
+#btn-open-drawer {
+  margin-right:  10px;
+}
+#back-contacts-lay {
+  margin: 5px;
+}
+
+#app-drawer {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,48 @@
+/*
+ * EDIT TEXT 
+ */
+ 
+.edit-text {
+    position: relative;
+    transform: translateX(-5px);
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.edit-text__input {
+    width: 100%;
+    background: none;
+    color: var(--app-accent-font-color);
+    padding: 10px 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--app-control-lightcolor);
+}
+.edit-text__input:focus + .edit-text__label, .edit-text__input:not(:placeholder-shown) + .edit-text__label{
+    transform: translateY(-12px) scale(.7);
+    transform-origin: left top;
+    color: var(--app-control-color);
+}
+.edit-text__label {
+    color: var(--app-control-lightcolor);
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(10px);
+    transition: transform .5s, color .3s;
+}
+.edit-text__line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--app-control-lightcolor);
+    transform: scale(0);
+    transform-origin: left bottom;
+    transition: transform .4s;
+}
+.edit-text__input:focus ~ .edit-text__line, .edit-text__input:not(:placeholder-shown) ~ .edit-text__line {
+    transform: scale(1);
+    background-color: var(--app-control-color);
+}

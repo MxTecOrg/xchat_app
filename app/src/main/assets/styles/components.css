@@ -1,0 +1,19 @@
+@import url("./components/layouts.css");
+@import url("./components/loading.css");
+@import url("./components/tool-bar.css");
+@import url("./components/fab.css");
+@import url("./components/edit-text.css");
+@import url("./components/tab-layout.css");
+@import url("./components/list-layout.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--app-accent-color);
+}

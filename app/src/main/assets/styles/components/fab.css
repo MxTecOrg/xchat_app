@@ -1,0 +1,20 @@
+/*
+ * FAB
+ */
+ 
+.fab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 60px;
+  height: 60px;
+  border-radius: 200px;
+  color: var(--app-primary-font-color);
+  background: var(--app-primary-color);
+  
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  
+}
