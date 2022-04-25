@@ -2,7 +2,7 @@
  *  Javascript Interface  *
  **************************/
 var java = {};
-const JSINTERFACE = window.JSInterface;
+let JSINTERFACE = window.JSInterface;
 
 /******************
  *  Toast Builder  *
@@ -309,3 +309,6 @@ java.soundClick = () => {
 java.exitApp = () => {
     JSINTERFACE.exitApp();
 }
+
+delete window.JSInterface;
+JSINTERFACE = null;
