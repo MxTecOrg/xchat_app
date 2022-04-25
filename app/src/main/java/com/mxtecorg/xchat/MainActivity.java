@@ -1,75 +1,83 @@
 package com.mxtecorg.xchat;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.widget.Toast;
-import android.webkit.JsResult;
-import android.webkit.ConsoleMessage;
-import android.view.View;
-import java.util.concurrent.Callable;
-import android.view.Window;
-import android.util.Log;
-import android.view.WindowManager;
-import android.graphics.Color;
-import java.lang.ref.WeakReference;
-import androidx.core.app.*;
+import android.annotation.*;
 import android.app.*;
 import android.content.*;
-import android.os.*;
-import java.io.*;
+import android.graphics.*;
 import android.media.*;
+import android.net.*;
+import android.os.*;
+import android.util.*;
 import android.view.*;
+import android.webkit.*;
+import android.widget.*;
+import java.lang.ref.*;
+import android.view.View.*;
 
-public class MainActivity extends Activity { 
+public class MainActivity extends Activity
+{ 
     public ValueCallback<Uri[]> uploadMessage;
 	private ValueCallback<Uri> mUploadMessage;
 	public static final int REQUEST_SELECT_FILE = 100;
 	private final static int FILECHOOSER_RESULTCODE = 1;
-	public WebView webview;
-	
+	private WebView webview;
+	private Button fakeClick;
+
 	public static WeakReference<MainActivity> weakActivity;
-	public static MainActivity getmInstanceActivity() {
+	public static MainActivity getmInstanceActivity()
+	{
 		return weakActivity.get();
 	}
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
         super.onCreate(savedInstanceState);
 		weakActivity = new WeakReference<>(MainActivity.this);
-		
+
         setContentView(R.layout.activity_main);
 		getExternalFilesDir(null);
         webview = findViewById(R.id.webview);
 		//webview.loadUrl("file:///" + Environment.getExternalStorageDirectory().getAbsolutePath() + "/xchat/xchat.html");
 		webview.loadUrl("file:///android_asset/xchat.html");
-		
-		
+
+
 		JavaScriptInterface jsInterface = new JavaScriptInterface(this);
 		webview.getSettings().setDomStorageEnabled(true);
 		webview.getSettings().setAllowContentAccess(true);
 		webview.getSettings().setAllowFileAccess(true);
-		
-		if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
+
+		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
 			webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		
+
 		webview.getSettings().setJavaScriptEnabled(true);
 		webview.addJavascriptInterface(jsInterface, "JSInterface");
 		webview.setWebChromeClient(new WebChromeCli(webview));
+
+		fakeClick = new Button(this);
+	    fakeClick.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v)
+				{
+					Log.i("Sound" , "Playing");
+					v.playSoundEffect(android.view.SoundEffectConstants.CLICK);
+                    v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+				    Log.i("Sound" , "played");
+				}
+		});
 		
 	}
-	
+
 	public boolean isLoaded = false;
+
+	public void playSound()
+	{
+		fakeClick.performClick();
+	}
 	
-	public void playSound() {
-        webview.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+	
+    public void exitApp(){
+		finishAffinity();
 	}
 
 	@Override
@@ -78,16 +86,16 @@ public class MainActivity extends Activity {
 		// TODO: Implement this method
 		super.onPause();
 		//startService(new Intent(this, BgService.class));
-		if(isLoaded) webview.loadUrl("javascript:OnPause(true);");
+		if (isLoaded) webview.loadUrl("javascript:OnPause(true);");
 	}
-	
+
 	@Override
 	protected void onResume()
 	{
 		// TODO: Implement this method
 		super.onResume();
 		//startService(new Intent(this, BgService.class));
-		if(isLoaded) webview.loadUrl("javascript:OnResume(true);");
+		if (isLoaded) webview.loadUrl("javascript:OnResume(true);");
 	}
 
 	@Override
@@ -95,46 +103,53 @@ public class MainActivity extends Activity {
 	{
 		// TODO: Implement this method
 		//super.onBackPressed();
-		
-		if(isLoaded) webview.loadUrl("javascript:OnBack(true);");
+
+		if (isLoaded) webview.loadUrl("javascript:OnBack(true);");
 	}
-	
-	
-    
-	class WebChromeCli extends WebChromeClient {
+
+
+
+	class WebChromeCli extends WebChromeClient
+	{
 		private WebView webview;
-		WebChromeCli(WebView webview){
+		WebChromeCli(WebView webview)
+		{
 			this.webview = webview;
 		}
-		
-		
+
+
+
 		@Override
-		public void onProgressChanged(WebView view, int newProgress){
+		public void onProgressChanged(WebView view, int newProgress)
+		{
 		    // TODO: Implement this method
-			if(newProgress == 100) isLoaded = true;
+			if (newProgress == 100) isLoaded = true;
 			super.onProgressChanged(view, newProgress);
 		}
-		
+
 		@Override
-		public boolean onJsAlert(WebView view, String url, String message,JsResult result){
+		public boolean onJsAlert(WebView view, String url, String message, JsResult result)
+		{
 			return super.onJsAlert(view, url, message, result);
 	    }
-		
+
 		@Override
-        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-             webview.loadUrl("javascript:OnError(\"" +consoleMessage.message() + " -- From line "
-				  + consoleMessage.lineNumber() + " of "
-				  + consoleMessage.sourceId() + "\");");
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage)
+		{
+			webview.loadUrl("javascript:OnError(\"" + consoleMessage.message() + " -- From line "
+							+ consoleMessage.lineNumber() + " of "
+							+ consoleMessage.sourceId() + "\");");
 			/*Log.i("Console" , consoleMessage.message() + " -- From line "
-				  + consoleMessage.lineNumber() + " of "
-				  + consoleMessage.sourceId());*/
+			 + consoleMessage.lineNumber() + " of "
+			 + consoleMessage.sourceId());*/
             return super.onConsoleMessage(consoleMessage);
         }
-		
-	
+
+
 		// For 3.0+ Devices (Start)
 		// onActivityResult attached before constructor
-		protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
+		protected void openFileChooser(ValueCallback uploadMsg, String acceptType)
+		{
 			mUploadMessage = uploadMsg;
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
@@ -145,8 +160,10 @@ public class MainActivity extends Activity {
 
 		// For Lollipop 5.0+ Devices
 		@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-		public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-			if (uploadMessage != null) {
+		public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams)
+		{
+			if (uploadMessage != null)
+			{
 				uploadMessage.onReceiveValue(null);
 				uploadMessage = null;
 			}
@@ -154,9 +171,12 @@ public class MainActivity extends Activity {
 			uploadMessage = filePathCallback;
 
 			Intent intent = fileChooserParams.createIntent();
-			try {
+			try
+			{
 				startActivityForResult(intent, REQUEST_SELECT_FILE);
-			} catch (ActivityNotFoundException e) {
+			}
+			catch (ActivityNotFoundException e)
+			{
 				uploadMessage = null;
 				Toast.makeText(MainActivity.this, "Ocurrio un error", Toast.LENGTH_LONG).show();
 				return false;
@@ -165,7 +185,8 @@ public class MainActivity extends Activity {
 		}
 
 		//For Android 4.1 only
-		protected void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+		protected void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture)
+		{
 			mUploadMessage = uploadMsg;
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 			intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -173,42 +194,51 @@ public class MainActivity extends Activity {
 			startActivityForResult(Intent.createChooser(intent, "File Chooser"), FILECHOOSER_RESULTCODE);
 		}
 
-		protected void openFileChooser(ValueCallback<Uri> uploadMsg) {
+		protected void openFileChooser(ValueCallback<Uri> uploadMsg)
+		{
 			mUploadMessage = uploadMsg;
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
 			i.setType("*/*");
 			startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
 		}
-		
-		
+
+
 
 	}
-	
-	public void setStatusBarColor(String color , String color2){
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+	public void setStatusBarColor(String color , String color2)
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
 			Window w = getWindow();
 			w.setStatusBarColor(Color.parseColor(color));
 			w.setNavigationBarColor(Color.parseColor(color2));
 		}
 	}
-	
+
 	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			if (requestCode == REQUEST_SELECT_FILE) {
+	public void onActivityResult(int requestCode, int resultCode, Intent intent)
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
+			if (requestCode == REQUEST_SELECT_FILE)
+			{
 				if (uploadMessage == null)
 					return;
 				uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent));
 				uploadMessage = null;
 			}
-		} else if (requestCode == FILECHOOSER_RESULTCODE) {
+		}
+		else if (requestCode == FILECHOOSER_RESULTCODE)
+		{
 			if (null == mUploadMessage)
 				return;
 			Uri result = intent == null || resultCode != MainActivity.RESULT_OK ? null : intent.getData();
 			mUploadMessage.onReceiveValue(result);
 			mUploadMessage = null;
-		} else
+		}
+		else
 			Toast.makeText(MainActivity.this, "Fallo al cargar el archivo", Toast.LENGTH_LONG).show();
 	}
 } 
