@@ -252,18 +252,7 @@ public class JavaScriptInterface
 	@JavascriptInterface
 	public void sound_click()
 	{
-	    try
-		{
-			MainActivity.getmInstanceActivity().playSound(ctx);
-		}
-		catch (IllegalStateException e)
-		{}
-		catch (SecurityException e)
-		{}
-		catch (IllegalArgumentException e)
-		{}
-		catch (IOException e)
-		{}
+		MainActivity.getmInstanceActivity().playSound();
 	}
 
 	@JavascriptInterface
