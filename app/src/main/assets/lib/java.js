@@ -309,6 +309,7 @@ java.soundClick = () => {
 java.exitApp = () => {
     JSINTERFACE.exitApp();
 }
-
+/*
 delete window.JSInterface;
 JSINTERFACE = null;
+*/
