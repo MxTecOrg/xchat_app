@@ -13,6 +13,8 @@ import android.webkit.*;
 import android.widget.*;
 import java.lang.ref.*;
 import android.view.View.*;
+import android.provider.*;
+import java.util.*;
 
 public class MainActivity extends Activity
 { 
@@ -55,47 +57,34 @@ public class MainActivity extends Activity
 		webview.setWebChromeClient(new WebChromeCli(webview));
 
 		fakeClick = new Button(this);
+        fakeClick.setOnClickListener(new View.OnClickListener() {
 
-	    fakeClick.setOnTouchListener(new OnTouchListener() {
 				@Override
-				public boolean onTouch(View view, MotionEvent event)
+				public void onClick(View v)
 				{
-					switch (event.getAction())
-					{
-						case MotionEvent.ACTION_DOWN:
-							Log.i("Sound" , "OnTouch");
-							view.playSoundEffect(SoundEffectConstants.CLICK);
-							view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-							Log.i("Sound" , "OnTouch2");
-							break;
-						case MotionEvent.ACTION_UP:
-
-							break;
-					}
-					return true;
+					// TODO Auto-generated method stub
+					fakeClick.playSoundEffect(0);
 				}
 			});
+		/*
+        Timer t = new Timer();
+		t.scheduleAtFixedRate(new TimerTask() {
 
+				@Override
+				public void run() {
+					//Called each time when 1000 milliseconds (1 second) (the period parameter)
+				playSound();
+				Log.i("Sound" , "Tick");
+					}
+
+			},0,1000);*/
 	}
 
 	public boolean isLoaded = false;
 
 	public void playSound()
 	{
-		long downTime = SystemClock.uptimeMillis();
-		long eventTime = SystemClock.uptimeMillis() + 100;
-		float x = 0.0f;
-		float y = 0.0f;
-		int metaState = 0;
-		MotionEvent motionEvent = MotionEvent.obtain(
-			downTime, 
-			eventTime, 
-			MotionEvent.ACTION_DOWN, 
-			x, 
-			y, 
-			metaState
-		);
-		fakeClick.dispatchTouchEvent(motionEvent);
+         fakeClick.performClick();
 	}
 
 
