@@ -254,7 +254,12 @@ public class JavaScriptInterface
 	{
 		MainActivity.getmInstanceActivity().playSound();
 	}
-
+	
+	@JavascriptInterface
+	public void exitApp(){
+		MainActivity.getmInstanceActivity().exitApp();
+	}
+	
 	@JavascriptInterface
 	public String fileExists(String path)
 	{
