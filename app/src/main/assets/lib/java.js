@@ -99,6 +99,19 @@ java.readFile = async (path, callback) => {
     };
 };
 
+java.readFileSync = (path) => {
+
+    let data = await JSINTERFACE.readFile(path).split("||||||||||");
+
+    let err = false;
+    if (data[0] == "ERROR") {
+        err = data[1];
+        return undefined;
+    }
+
+    return data[1];
+};
+
 
 /******************
  *    Write File   *
@@ -117,6 +130,16 @@ java.writeFile = async (path, content, callback) => {
     }
 
     if (callback) callback(err);
+    return err;
+};
+
+java.writeFileSync = (path, content) => {
+
+    let data = await JSINTERFACE.writeFile(path, content).split("||||||||||");
+    let err = true;
+    if (data[0] == "ERROR") {
+        err = data[1];
+    }
     return err;
 };
 
