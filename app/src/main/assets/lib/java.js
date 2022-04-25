@@ -243,7 +243,7 @@ java.setAppColor = async (statusBar, navBar) => {
     try {
         JSINTERFACE.setStatusBarColor(statusBar, navBar);
     } catch (err) {
-       
+
     }
 }
 
@@ -298,9 +298,9 @@ java.noti = {
  ****************/
 
 java.soundClick = () => {
-    try{
-    JSINTERFACE.sound_click();
-    }catch(err){
+    try {
+        JSINTERFACE.sound_click();
+    } catch (err) {
         alert(err);
     }
 }

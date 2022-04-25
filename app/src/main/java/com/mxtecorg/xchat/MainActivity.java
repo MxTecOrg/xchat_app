@@ -55,28 +55,52 @@ public class MainActivity extends Activity
 		webview.setWebChromeClient(new WebChromeCli(webview));
 
 		fakeClick = new Button(this);
-	    fakeClick.setOnClickListener(new OnClickListener() {
+
+	    fakeClick.setOnTouchListener(new OnTouchListener() {
 				@Override
-				public void onClick(View v)
+				public boolean onTouch(View view, MotionEvent event)
 				{
-					Log.i("Sound" , "Playing");
-					v.playSoundEffect(android.view.SoundEffectConstants.CLICK);
-                    v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-				    Log.i("Sound" , "played");
+					switch (event.getAction())
+					{
+						case MotionEvent.ACTION_DOWN:
+							Log.i("Sound" , "OnTouch");
+							view.playSoundEffect(SoundEffectConstants.CLICK);
+							view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+							Log.i("Sound" , "OnTouch2");
+							break;
+						case MotionEvent.ACTION_UP:
+
+							break;
+					}
+					return true;
 				}
-		});
-		
+			});
+
 	}
 
 	public boolean isLoaded = false;
 
 	public void playSound()
 	{
-		fakeClick.performClick();
+		long downTime = SystemClock.uptimeMillis();
+		long eventTime = SystemClock.uptimeMillis() + 100;
+		float x = 0.0f;
+		float y = 0.0f;
+		int metaState = 0;
+		MotionEvent motionEvent = MotionEvent.obtain(
+			downTime, 
+			eventTime, 
+			MotionEvent.ACTION_DOWN, 
+			x, 
+			y, 
+			metaState
+		);
+		fakeClick.dispatchTouchEvent(motionEvent);
 	}
-	
-	
-    public void exitApp(){
+
+
+    public void exitApp()
+	{
 		finishAffinity();
 	}
 
