@@ -77,6 +77,19 @@ java.listDir = async (path, callback) => {
     };
 };
 
+java.listDirSync = (path) => {
+    let data = JSINTERFACE.listDir(path).split(",");
+    let err = null;
+    if (data[0] == "__ERROR__") {
+        err = data[1];
+        data = null;
+    }
+
+    return {
+        err: err,
+        data: data
+    };
+};
 
 /******************
  *    Read File    *
