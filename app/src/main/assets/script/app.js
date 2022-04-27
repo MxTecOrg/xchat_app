@@ -13,6 +13,14 @@ app.script = function( url, callback ) {
   script = null;
 };
 
+// debug //
+app.debug = function(title, txt){
+  txt = txt?txt:title;
+  title = txt?"":title;
+  let _show = typeof txt == "object"? JSON.stringify(txt) : txt;
+  alert("app.debug :::: " + title + "\n" + _show);
+  return txt;
+};
 
 // loading screen //
 app.loading = {
@@ -81,8 +89,8 @@ app.wall = {
 
 // database //
 app.save_data = function(place, data) {
-  data = JSON.stringify({d: data});
-  return localStorage.setItem(place, data);
+  localStorage.setItem(place, JSON.stringify({d: data}));
+  return data;
 };
 app.load_data = function (place, def) {
   let data = localStorage.getItem(place);
@@ -92,6 +100,12 @@ app.load_data = function (place, def) {
 app.remove_data = function (place) {localStorage.removeItem(place)};
 
 
+// audio //
+app.playSound = function (src) {
+  new Audio(src).play();
+};
+
+
 // alert //
 app.alert = function (txt, callback) {
   spam.alert({
@@ -99,15 +113,6 @@ app.alert = function (txt, callback) {
     text: txt,
     action: callback
   });
-};
-
-// confirm //
-app.confirm = function (txt, callback) {
-  spam.confirm({
-    title: null,
-    text: txt,
-    action: callback
-  })
 };
 
 // app init //

@@ -1,0 +1,36 @@
+{
+  "esversion": 6,
+  "undef": true, 
+  "unused": true,
+  "browser": true,
+  "devel": true,
+  "asi": true,
+  "lastsemic": true,
+  "singleGroups": true,
+  
+  
+  "globals": { 
+    "app": true,
+    "java": true,
+    "theme": true,
+    "dom": true,
+    "server": true,
+    "io": true,
+    
+    "Spam": true,
+    "TabLayout": true,
+    "Drawer": true,
+    "ListView": true,
+    
+    "s_login": true,
+    "s_main": true,
+    "s_welcome": true,
+    "s_contacts": true,
+    "s_drawer": true,
+    "InitMainApp": true,
+    
+    "PATH": true,
+    "URL": true,
+    "USER": true
+  }
+}

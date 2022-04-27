@@ -127,7 +127,7 @@ function s_login () {
        
         layIn.style.transform = 
            "scale(" + (0.6 + 0.4 * n) + ") " +
-           "translateX(" + (traslate) + "px)";
+           "translateX(" + traslate + "px)";
         layIn.style.filter = "opacity(" + n + ")";
         layIn.style.display = "flex";
     }, 1000, function(n){return 1 - Math.pow(1 - n, 4)})
@@ -168,7 +168,7 @@ function s_login () {
       rpassword: r_rpass.input.value
     };
     server.process({
-      url: URL.auth + "/register", 
+      url: URL.register, 
       method: "POST",
       data: req,
       data_type: "json",
@@ -199,7 +199,7 @@ function s_login () {
       password: a_pass.input.value
     };
     server.process({
-      url: URL.auth + "/login", 
+      url: URL.login, 
       method: "POST",
       data_type: "json",
       data: req,
@@ -208,9 +208,7 @@ function s_login () {
         if(data.status){
           USER.name = req.username;
           USER.pass = req.password;
-          app.save_data("token" , data.data);
-          connect();
-          s_login.ok();
+          s_login.ok(data.data);
         }
         else app.alert(data.data);
         app.loading.hidden();
@@ -229,7 +227,7 @@ function s_login () {
       app.loading.show();
       input.value = input.value.substr(0, 5);
       server.process({
-        url: URL.auth + "/verify",
+        url: URL.verify,
         method: "POST",
         data_type: "json",
         data: {
@@ -237,7 +235,7 @@ function s_login () {
           token: input.value
         }, 
         success: function(data) {
-          if(data.status) s_login.ok();
+          if(data.status) s_login.ok(data.data);
           else app.alert(data.data);
           app.loading.hidden();
         },
@@ -255,7 +253,7 @@ function s_login () {
     verify_re.style.display = "none";
     
     server.process({
-      url: URL.auth + "/resendToken",
+      url: URL.resendToken,
       data: {email: USER.email},
       data_type: "json",
       method: "POST",
@@ -277,8 +275,9 @@ function s_login () {
 
 s_login.open = function(){ s_login.layout.open() };
 s_login.close = function(){ s_login.layout.close() };
-s_login.ok = function(){
+s_login.ok = function(token){
   app.loading.show();
+  TOKEN = app.save_data("token" , token);
   s_login.close();
   InitMainApp();
   app.save_data("authenticated", true);

@@ -111,7 +111,7 @@ function s_welcome () {
   lay.drawer.ontouchmove = function(e){
     touchPos = e.changedTouches[0].screenX;
   };
-  lay.drawer.ontouchend = function(e){
+  lay.drawer.ontouchend = function(){
     lay_top.drag = false;
     let actualScroll = lay_top.scrollLeft;
     let distance = touchPos - touchStart;
@@ -156,4 +156,4 @@ function s_welcome () {
     .start();
     
   }
-};
+}

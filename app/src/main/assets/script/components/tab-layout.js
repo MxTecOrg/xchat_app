@@ -3,9 +3,8 @@
 */
 
 class TabLayout {
-  constructor( id ){
+  constructor( layout ){
     let width = screen.width;
-    let layout = document.getElementById(id);
     let nav = layout.querySelector(".tab-layout--nav");
     let scroller = layout.querySelector(".tab-layout--body");
     let line = document.createElement("span");
@@ -30,14 +29,19 @@ class TabLayout {
       };
     }
     
-    scroller.onscroll = function(e){
+    scroller.onscroll = function(){
       line.style.left = scroller.scrollLeft / tabs_length + "px";
     };
-    
-    
     
     /* add bottom line */
     line.setAttribute("class", "tab-layout--line");
     nav.appendChild(line);
+    
+    this.tabs = tabs;
+    this.layers = layers;
   }
+  
+  /* method component */
+  open ( id ) { this.tabs[id].click() }
+  getLayer ( id ) { return this.layers[id] }
 }

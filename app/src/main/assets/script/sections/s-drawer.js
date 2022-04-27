@@ -1,20 +1,15 @@
 function s_drawer () {
-   // drawer init //
-  btn_open_drawer = dom.get("#btn-open-drawer");
-  btn_open_drawer.onclick = function(e){ s_drawer.open() };
-      
-  s_drawer.layout = Drawer.UI("app-drawer", {
+  // drawer init //
+  let layout = Drawer.UI("app-drawer", {
     draggable: true,
     animation: "smooth",
     duration: 500
   });
+  layout.on("open", function(){ app.screen = s_drawer });
+  layout.on("close", function(){ app.screen = s_main });
+  
+  s_drawer.layout = layout;
 }
 
-s_drawer.open = function(){ 
-  s_drawer.layout.open();
-  app.screen = s_drawer;
-};
-s_drawer.close = function(){ 
-  s_drawer.layout.close();
-  app.screen = s_main;
-}
+s_drawer.open = function(){ s_drawer.layout.open() };
+s_drawer.close = function(){ s_drawer.layout.close() };

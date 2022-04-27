@@ -1,6 +1,8 @@
 app.script( PATH.js + "/themes.js");
+app.script( PATH.js + "/client/connect.js");
 
 app.script( PATH.js + "/components/tab-layout.js");
+app.script( PATH.js + "/components/list-view.js");
 app.script( PATH.js + "/components/drawer-layout.js");
 
 app.script( PATH.js + "/sections/s-main.js");
@@ -12,7 +14,7 @@ app.script( PATH.js + "/sections/s-login.js");
 
 
 function OnStart(){
-  app.screen = null;
+  app.screen = s_main;
   
   // load theme //
   theme();
@@ -39,9 +41,16 @@ function OnStart(){
 function InitMainApp(){
   s_welcome = null; s_login = null;
     
-  s_main(); // main layout init //
-  s_drawer(); // drawer init //
-  s_contacts(); // contacts layout init //
+  s_main(); // main layout init
+  s_drawer(); // drawer init
+  s_contacts(); // contacts layout init
+  
+  /* load app files */
+  java.createDir(PATH.data + "/Rooms");
+  java.createDir(PATH.data + "/Multimedia");
+  
+  /* socket */
+  Connect();
 }
 
 

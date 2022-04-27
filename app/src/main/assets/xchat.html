@@ -4,21 +4,21 @@
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     
-   
-    <script src="./lib/drawerbuild.min.js"></script>
-    <script src="./lib/stylespam.min.js"></script>
-    <script src="./lib/ajax-send.min.js"></script>
-    <script src="./lib/dom.min.js"></script>
-    <script src="./lib/java.js"></script>
+    <script src="lib/drawerbuild.min.js"></script>
+    <script src="lib/stylespam.min.js"></script>
+    <script src="lib/socket-io.min.js"></script>
+    <script src="lib/ajax-send.min.js"></script>
+    <script src="lib/dom.min.js"></script>
+    <script src="lib/java.js"></script>
     
-    <script src="./script/app.js"></script>
-    <script src="./script/config.js"></script>
-    <script src="./script/xchat.js"></script>
+    <script src="script/app.js"></script>
+    <script src="config.js"></script>
+    <script src="script/xchat.js"></script>
     
-    <link rel='stylesheet' href='./lib/font-awesome/css/font-awesome.min.css'/>
-    <link rel='stylesheet' href='./styles/components.css'/>
-    <link rel='stylesheet' href='./styles/xchat.css'/>
-    <link rel='stylesheet' href='./styles/auth.css'/>
+    <link rel='stylesheet' href='lib/font-awesome/css/font-awesome.min.css'/>
+    <link rel='stylesheet' href='styles/components.css'/>
+    <link rel='stylesheet' href='styles/xchat.css'/>
+    <link rel='stylesheet' href='styles/auth.css'/>
   </head>
   
   <body onload="app.start()">
@@ -29,10 +29,10 @@
       
       <div class="tool-bar">
         <div class="tool-bar--left">
-          <i id="btn-open-drawer" class="fa fa-bars fa-lg"></i>
+          <i id="btn-open-drawer" class="fa fa-bars fa-lg" onclick="s_drawer.open()"></i>
         </div>
         <div class="tool-bar--center">
-          <h2> XChat </h2>
+          <h2> </h2>
         </div>
         <div class="tool-bar--right">
           <i id="btn-open-main-menu" class="fa fa-ellipsis-v fa-lg"></i>
