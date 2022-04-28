@@ -15,6 +15,7 @@ import java.lang.ref.*;
 import android.view.View.*;
 import android.provider.*;
 import java.util.*;
+import android.view.ViewTreeObserver.*;
 
 public class MainActivity extends Activity
 { 
@@ -56,6 +57,7 @@ public class MainActivity extends Activity
 		webview.addJavascriptInterface(jsInterface, "JSInterface");
 		webview.setWebChromeClient(new WebChromeCli(webview));
 
+
 		fakeClick = new Button(this);
         fakeClick.setOnClickListener(new View.OnClickListener() {
 
@@ -66,25 +68,13 @@ public class MainActivity extends Activity
 					fakeClick.playSoundEffect(0);
 				}
 			});
-		/*
-        Timer t = new Timer();
-		t.scheduleAtFixedRate(new TimerTask() {
-
-				@Override
-				public void run() {
-					//Called each time when 1000 milliseconds (1 second) (the period parameter)
-				playSound();
-				Log.i("Sound" , "Tick");
-					}
-
-			},0,1000);*/
 	}
 
 	public boolean isLoaded = false;
 
 	public void playSound()
 	{
-         fakeClick.performClick();
+		fakeClick.performClick();
 	}
 
 

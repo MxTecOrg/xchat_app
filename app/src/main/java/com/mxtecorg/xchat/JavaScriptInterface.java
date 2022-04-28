@@ -22,6 +22,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import es.dmoral.toasty.*;
 import android.view.*;
+import java.io.*;
 
 public class JavaScriptInterface
 {
@@ -205,13 +206,24 @@ public class JavaScriptInterface
 
 
 	@JavascriptInterface
-	public String writeFile(String path , String content)
+	public String writeFile(String path , String content , boolean append)
 	{
 		try
 		{
 			File file = new File(path);
+			if(append){
+				FileOutputStream fos = new FileOutputStream(file , true);
+
+				OutputStreamWriter out = new OutputStreamWriter(fos); 
+				out.append(content);
+				out.flush();
+				out.close();
+				return "DONE";
+			}
 		    FileOutputStream fos = new FileOutputStream(file);
+			
 			fos.write(content.getBytes());
+		
 			fos.flush();
 			fos.close();
 			return "DONE";
