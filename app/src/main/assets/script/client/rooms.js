@@ -5,6 +5,16 @@ ROOMS = {};
 
 var LoadRooms = async function () {
   var rooms = java.listDirSync(PATH.data + "/Rooms").data;
+  /** test **/
+  CreateRoomUI({
+    name: "El Cabra",
+    messages: ["mensaje de prueba"]
+  });
+  CreateRoomUI({
+    name: "Fulanito",
+    messages: ["hello world"]
+  });
+  /** test **/
   if(rooms[0]) for(var room of rooms) {
     try {
       var f = JSON.parse( 
@@ -33,6 +43,11 @@ function CreateRoomUI (room) {
   
   title.innerText = room.name;
   if(smss.length) last_sms.innerText = smss[smss.length - 1];
+  
+  layer.onclick = function(e){
+    s_chat.setChat(room.name);
+    s_chat.open();
+  };
   
   txt_layer.appendChild(title);
   txt_layer.appendChild(last_sms);

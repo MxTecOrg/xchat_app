@@ -1,5 +1,9 @@
+/**
+  CONTACTS SCREEN
+**/
+
 function s_contacts () {
-  let layout = Drawer.UI("contacts-layout", {
+  let layout = Drawer.UI("contacts-screen", {
     draggable: false,
     position: "right",
     animation: "bounce",

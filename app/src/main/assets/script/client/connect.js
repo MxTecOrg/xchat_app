@@ -1,5 +1,6 @@
 app.script( PATH.js + "/client/user-data.js");
 app.script( PATH.js + "/client/rooms.js");
+app.script( PATH.js + "/client/messages.js");
 
 SOCKET = null;
 
@@ -40,6 +41,7 @@ function Connect () {
   SOCKET.on("alert", s => app.debug(s));
   SOCKET.on("load-user", SOCKET__LoadUser);
   SOCKET.on("get-room-data", SOCKET__GetRoomData);
+  SOCKET.on("get-room-mess", SOCKET__GetRoomMessage);
   
   /* cargar chats de la DB */
   LoadRooms();

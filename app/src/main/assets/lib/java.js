@@ -134,9 +134,9 @@ java.readFileSync = (path) => {
  * param String {content}
  * param Callback{string}
  ***********/
-java.writeFile = async (path, content,append , callback) => {
+java.writeFile = async (path, content, callback) => {
 
-    let data = await JSINTERFACE.writeFile(path, content, (append ? append : false)).split("||||||||||");
+    let data = await JSINTERFACE.writeFile(path, content).split("||||||||||");
     let err = false;
     if (data[0] == "ERROR") {
         err = data[1];
@@ -146,9 +146,9 @@ java.writeFile = async (path, content,append , callback) => {
     return err;
 };
 
-java.writeFileSync = (path, content , append) => {
+java.writeFileSync = (path, content) => {
 
-    let data = JSINTERFACE.writeFile(path, content, (append ? append : false)).split("||||||||||");
+    let data = JSINTERFACE.writeFile(path, content).split("||||||||||");
     let err = true;
     if (data[0] == "ERROR") {
         err = data[1];

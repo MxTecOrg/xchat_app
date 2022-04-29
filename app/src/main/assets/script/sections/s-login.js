@@ -277,6 +277,7 @@ s_login.open = function(){ s_login.layout.open() };
 s_login.close = function(){ s_login.layout.close() };
 s_login.ok = function(token){
   app.loading.show();
+  s_welcome.toggle_theme.style.display = "none";
   TOKEN = app.save_data("token" , token);
   s_login.close();
   InitMainApp();

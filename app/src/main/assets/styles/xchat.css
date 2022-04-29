@@ -1,3 +1,7 @@
+@import url("sections/s-chat.css");
+@import url("sections/s-login.css");
+@import url("sections/s-welcome.css");
+
 :root {
   /* static */
   --tool-bar-shadow: 0 6px 10px -5px rgba(0,0,0,0.5);
@@ -14,7 +18,7 @@
   --app-control-lightcolor: 0;
 }
 
-#main-layout {
+#main-screen {
   display: none
 }
 

@@ -16,16 +16,15 @@
     <script src="script/xchat.js"></script>
     
     <link rel='stylesheet' href='lib/font-awesome/css/font-awesome.min.css'/>
-    <link rel='stylesheet' href='styles/components.css'/>
     <link rel='stylesheet' href='styles/xchat.css'/>
-    <link rel='stylesheet' href='styles/auth.css'/>
+    <link rel='stylesheet' href='styles/components.css'/>
   </head>
   
   <body onload="app.start()">
     
     
     <!-- <LAY> MAIN -->
-    <div id="main-layout" class="absolute-layout">
+    <div id="main-screen" class="absolute-layout">
       
       <div class="tool-bar">
         <div class="tool-bar--left">
@@ -59,7 +58,7 @@
     </div>
     
     <!-- <LAY> CONTACTS LIST -->
-    <div id="contacts-layout">
+    <div id="contacts-screen">
       <div class="tool-bar">
         <div class="tool-bar--left">
           <i id="back-contacts-lay" class="fa fa-arrow-left fa-lg" onclick="s_contacts.close()"></i>
@@ -82,6 +81,40 @@
           <div>Añadir contacto</div>
         </li>
         <li class="list-view--divider"></li>
+      </div>
+    </div>
+    
+    <!-- <LAY> CHAT -->
+    <div id="chat-screen">
+      <div class="tool-bar">
+        <div class="tool-bar--left">
+          <i class="fa fa-arrow-left fa-lg" onclick="s_chat.close()"></i>
+        </div>
+        
+        <div class="tool-bar--center">
+          <span></span>
+          <div>
+            <strong></strong>
+            <p></p>
+          </div>
+        </div>
+        
+        <div class="tool-bar--right">
+          <i class="fa fa-ellipsis-v fa-lg"></i>
+        </div>
+      </div>
+      <div id="chat-layercontainer">
+        
+      </div>
+      <div class="action-bar">
+        <div class="action-bar--left">
+          <i class="fa fa-smile-o"></i>
+          <span class="action-bar--input" contenteditable="true"></span>
+          <i class="fa fa-paperclip"></i>
+        </div>
+        <div class="action-bar--send">
+          <i class="fa fa-send"></i>
+        </div>
       </div>
     </div>
     

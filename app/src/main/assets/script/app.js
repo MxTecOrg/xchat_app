@@ -1,6 +1,10 @@
 app = {};
 let spam = null;
 
+// screen //
+app.width = window.innerWidth;
+app.height = window.innerHeight;
+
 // import //
 app.script = function( url, callback ) {
   let script = document.createElement("script");

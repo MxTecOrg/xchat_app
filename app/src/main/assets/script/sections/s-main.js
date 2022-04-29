@@ -1,5 +1,5 @@
 function s_main () {
-  let lay = dom.get("#main-layout");
+  let lay = dom.get("#main-screen");
   let tabs = new TabLayout(document.getElementById("tabs-main"));
   let toolbar = lay.querySelector(".tool-bar");
   

@@ -6,6 +6,7 @@ app.script( PATH.js + "/components/list-view.js");
 app.script( PATH.js + "/components/drawer-layout.js");
 
 app.script( PATH.js + "/sections/s-main.js");
+app.script( PATH.js + "/sections/s-chat.js");
 app.script( PATH.js + "/sections/s-drawer.js");
 app.script( PATH.js + "/sections/s-contacts.js");
 app.script( PATH.js + "/sections/s-welcome.js");
@@ -41,9 +42,10 @@ function OnStart(){
 function InitMainApp(){
   s_welcome = null; s_login = null;
     
-  s_main(); // main layout init
+  s_main(); // main screen init
+  s_chat(); // chat screen init
   s_drawer(); // drawer init
-  s_contacts(); // contacts layout init
+  s_contacts(); // contacts screen init
   
   /* load app files */
   java.createDir(PATH.data + "/Rooms");

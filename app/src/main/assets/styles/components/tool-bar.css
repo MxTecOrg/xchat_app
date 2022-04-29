@@ -23,7 +23,8 @@
 .tool-bar > .tool-bar--center {
   flex-grow: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   padding-left: 30px;
 }
 .tool-bar > .tool-bar--right {

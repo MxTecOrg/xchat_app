@@ -1,3 +1,7 @@
+/**
+  WELCOME SCREEN
+**/
+
 function s_welcome () {
   // container layout //
   let lay = dom.create("div");
@@ -20,6 +24,7 @@ function s_welcome () {
   let lay_toggle = dom.create("i");
   let toggle_on = theme.is == "dark";
   lay_toggle.dom.set("class", "w-toggle fa fa-" + (toggle_on?"sun":"moon") + "-o fa-lg");
+  s_welcome.toggle_theme = lay_toggle;
  
   lay_toggle.onclick = function(e){
     e.stopPropagation();
