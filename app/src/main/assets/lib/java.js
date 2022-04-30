@@ -349,3 +349,359 @@ java.exitApp = () => {
 delete window.JSInterface;
 JSINTERFACE = null;
 */
+
+/******************
+ *   SQL Database  *
+ *******************/
+java.DB = {};
+
+/*********************
+ * Create Room Table *
+ *********************
+ * crear la tabla de rooms
+ * return {void}
+ ********/
+
+java.DB.createRoomTable = async () => {
+    JSINTERFACE.createRoomTable();
+}
+
+/******************
+ *   Create Room  *
+ ******************
+ * crear row en la 
+ * tabla rooms
+ * return {boolean}
+ **********/
+
+java.DB.createRoom = (data) => {
+    const {
+        chat_id,
+        pic,
+        type,
+        gType,
+        link,
+        name,
+        desc,
+        bgColor,
+        textColor,
+        owner,
+        admins,
+        members,
+        banList,
+        bots,
+        pinned,
+        level
+    } = data;
+    if (JSINTERFACE.createRoom(chat_id, pic, type, gType,
+            link, name, desc, bgColor, textColor, owner,
+            admins, members, banList, bots, pinned, level) == "true") return true;
+    else return false;
+}
+
+java.DB.updateRoom = (data) => {
+    const {
+        chat_id,
+        pic,
+        type,
+        gType,
+        link,
+        name,
+        desc,
+        bgColor,
+        textColor,
+        owner,
+        admins,
+        members,
+        banList,
+        bots,
+        pinned,
+        level
+    } = data;
+    if (JSINTERFACE.updateRoom(chat_id, pic, type, gType,
+            link, name, desc, bgColor, textColor, owner,
+            JSON.stringify(admins), JSON.stringify(members), JSON.stringify(banList), JSON.stringify(bots), JSON.stringify(pinned), level) == "true") return true;
+    else return false;
+}
+
+java.DB.createRoom = (data) => {
+    const {
+        chat_id,
+        pic,
+        type,
+        gType,
+        link,
+        name,
+        desc,
+        bgColor,
+        textColor,
+        owner,
+        admins,
+        members,
+        banList,
+        bots,
+        pinned,
+        level
+    } = data;
+    if (JSINTERFACE.createRoom(chat_id, pic, type, gType,
+            link, name, desc, bgColor, textColor, owner,
+            JSON.stringify(admins), JSON.stringify(members), JSON.stringify(banList), JSON.stringify(bots), JSON.stringify(pinned), level) == "true") return true;
+    else return false;
+}
+
+/**********************
+ *  update room data  *
+ **********************
+ * actualizar key de una
+ * room
+ * return {boolean}
+ ***********/
+
+java.DB.updateRoomData = (chat_id, key, value) => {
+    if (JSINTERFACE.updateRoomData(chat_id, key, value) == "true") return true;
+    else return false;
+}
+
+/*****************
+ *  Delete Room  *
+ *****************
+ * borrar room chat
+ * return {int}
+ ********/
+
+java.DB.deleteRoom = (chat_id) => {
+    return JSINTERFACE.deleteRoom(chat_id);
+}
+
+/************************
+ * Create Message Table *
+ ************************
+ * crear tabla de mensaje
+ * return {void}
+ ***********/
+
+java.DB.createMessageTable = async (chat_id) => {
+    JSINTERFACE.createMessageTable(chat_id);
+}
+
+/*****************
+ * Get All Rooms *
+ *****************
+ * obtener todos los
+ * ids de las rooms
+ * return [String]
+ *********/
+java.DB.getAllRooms = () => {
+    const rooms = JSINTERFACE.getAllRooms();
+    if (rooms == "") return false;
+    return rooms.split(",");
+}
+
+/*****************
+ * Get Room Data *
+ *****************
+ * Obtener los datos
+ * de la room
+ * return {object}
+ ********/
+
+java.DB.getRoomData = (chat_id) => {
+    const data = JSINTERFACE.getRoomData(chat_id);
+    if (data == "null") return false;
+    else {
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            return false;
+        }
+    }
+}
+
+/**********************
+ * Get All Rooms Data *
+ **********************
+ * obtener todos los 
+ * datos de las rooms
+ * return {object} 
+ *********/
+
+java.DB.getAllRoomsData = () => {
+    const data = JSINTERFACE.getAllRoomsData();
+    if (data == "null") return false;
+    else {
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            return false;
+        }
+    }
+}
+
+/****************
+ * Rooms Length *
+ ****************
+ * obtener el 
+ * conteo de rooms
+ * return {int}
+ *******/
+
+java.DB.roomsLength = () => {
+    const data = JSINTERFACE.roomsLength();
+    return parseInt(data);
+}
+
+/*****************
+ *  Add Message  *
+ *****************
+ * añadir mensaje
+ * a la tabla 
+ * return {boolean}
+ *********/
+
+java.DB.addMessage = (data) => {
+    const {
+        mess_id,
+        user_id,
+        user_nick,
+        user_color,
+        chat_id,
+        type,
+        reply,
+        shared,
+        isEdited,
+        isBot,
+        receivedBy,
+        seenBy,
+        message,
+        inline,
+        keyboard,
+        date
+
+    } = data;
+    const mess = JSINTERFACE.addMessage(mess_id, user_id, user_nick, user_color,
+        chat_id, type, (typeOf(reply) == "object" ? JSON.stringify(reply) : reply), parseInt(shared), parseInt(isEdited), parseInt(isBot),
+        JSON.stringify(receivedBy), JSON.stringify(seenBy), message, JSON.stringify(inline), JSON.stringify(keyboard), parseInt(date));
+    if (mess == "true") return true;
+    else return false;
+
+}
+
+java.DB.updateMessage = (data) => {
+    const {
+        mess_id,
+        user_id,
+        user_nick,
+        user_color,
+        chat_id,
+        type,
+        reply,
+        shared,
+        isEdited,
+        isBot,
+        receivedBy,
+        seenBy,
+        message,
+        inline,
+        keyboard,
+        date
+
+    } = data;
+    const mess = JSINTERFACE.updateMessage(mess_id, user_id, user_nick, user_color,
+        chat_id, type, (typeOf(reply) == "object" ? JSON.stringify(reply) : reply), parseInt(shared), parseInt(isEdited), parseInt(isBot),
+        JSON.stringify(receivedBy), JSON.stringify(seenBy), message, JSON.stringify(inline), JSON.stringify(keyboard), parseInt(date));
+    if (mess == "true") return true;
+    else return false;
+
+}
+
+/***********************
+ * Update Message Data *
+ ***********************
+ * actualizar un dato de
+ * un mensaje 
+ * return {boolean}
+ ***********/
+
+java.DB.updateMessageData = (chat_id, mess_id, key, value) => {
+    const mess = JSINTERFACE.updateMessageData(chat_id, mess_id, key, value);
+    if (mess == "true") return true;
+    else return false;
+}
+
+/********************
+ * Get Message Data *
+ ********************
+ * obtener los datos 
+ * de un mensaje 
+ * return {object}
+ **********/
+
+java.DB.getMessageData = (chat_id, mess_id) => {
+    const mess = JSINTERFACE.getMessageData(chat_id, mess_id);
+    if (mess == "false") return false;
+    else {
+        try {
+            return JSON.parse(mess);
+        } catch (err) {
+            return false;
+        }
+    }
+}
+
+/*******************
+ * Get Chat Length *
+ *******************
+ * devuelve la cantidad
+ * de sms de una room
+ * return {int}
+ **********/
+
+java.DB.getChatLength = (chat_id) => {
+    return parseInt(JSInterface.getChatLength());
+}
+
+/****************************
+ * Get All Messages In room *
+ ****************************
+ * Obtener todos los mensajes
+ * de una room con rango
+ * return {object}
+ ***********/
+
+java.DB.getAllMessInRoom = (chat_id , start , end) => {
+    const mess = JSINTERFACE(chat_id , (start ? start : "null") , (end ? end : "null"));
+    if(mess == "null") return false;
+    else {
+        try{
+            return JSON.parse(mess);
+        }catch(err){
+            return false;
+        }
+    }
+}
+
+/*******************
+ * Delete Messages *
+ *******************
+ * Borra toda una 
+ * tabla de mensajes
+ * return {void}
+ **********/
+
+java.DB.deleteMessages = async (chat_id) => {
+    JSINTERFACE.deleteMessages(chat_id);
+}
+
+/*********************
+ * Get Room Messages *
+ *********************
+ * retorna todos los 
+ * ids de sms de una room
+ * return [string]
+ **********/
+ 
+ java.DB.getRoomMessages = (chat_id) => {
+    let mess = JSINTERFACE.getRoomMessages(chat_id);
+    if(mess == "null") return false;
+    else return mess.split(",");
+ }

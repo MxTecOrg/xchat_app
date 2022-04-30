@@ -30,6 +30,7 @@ public class JavaScriptInterface
 	private Context ctx;
 	private Vibrator vibrator;
 	private NotificationBuilder nb;
+	private DBHelper db;
 
 	public JavaScriptInterface(Context ctx)
 	{
@@ -37,6 +38,7 @@ public class JavaScriptInterface
 		//this.act = act;
 		this.vibrator = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
         nb = new NotificationBuilder(ctx);
+		db = new DBHelper(ctx);
 	}
 
 
@@ -366,5 +368,125 @@ public class JavaScriptInterface
 	public void log(String tag , String msg)
 	{
 		Log.i(tag , msg);
+	}
+	
+	@JavascriptInterface
+	public void createRoomTable(){
+		db.createRoomTable();
+	}
+	
+	@JavascriptInterface
+	public String createRoom(String chat_id , String pic , String type , String gType,
+	String link , String name , String desc , String bgColor , String textColor , String owner, 
+	String admins , String members , String banList , String bots, String pinned , String level)
+{
+		if(db.createRoom(chat_id , pic , type , gType,
+			 link ,  name ,  desc , bgColor , textColor ,  owner, 
+			admins , members , banList , bots, pinned , level)) return "true";
+			else return "false";
+	}
+	
+	@JavascriptInterface
+	public String updateRoom(String chat_id , String pic , String type , String gType,
+							 String link , String name , String desc , String bgColor , String textColor , String owner, 
+							 String admins , String members , String banList , String bots, String pinned , String level)
+	{
+		if(db.updateRoom(chat_id , pic , type , gType,
+						 link ,  name ,  desc , bgColor , textColor ,  owner, 
+						 admins , members , banList , bots, pinned , level)) return "true";
+		else return "false";
+	}
+	
+	@JavascriptInterface
+	public String updateRoomData(String chat_id , String key , String value){
+		if(db.updateRoomData(chat_id , key , value)) return "true";
+		else return "false";
+	}
+	
+	@JavascriptInterface
+	public String deleteRoom(String chat_id){
+		return String.valueOf(db.deleteRoom(chat_id));
+	}
+	
+	@JavascriptInterface
+	public void createMessageTable(String chat_id){
+		db.createMessageTable(chat_id);
+	}
+	
+	@JavascriptInterface
+	public String getAllRooms(){
+		return db.getAllRooms();
+	}
+	
+	@JavascriptInterface
+	public String getRoomData(String chat_id){
+		return db.getRoomData(chat_id);
+	}
+	
+	@JavascriptInterface
+	public String getAllRoomsData(){
+		return db.getAllRoomsData();
+	}
+	
+	@JavascriptInterface
+	public String roomsLength(){
+		return String.valueOf(db.roomsLength());
+	}
+	
+	@JavascriptInterface
+	public String addMessage(String mess_id , String user_id , String user_nick , String user_color,
+							 String chat_id , String type , String reply , int shared , int isEdited , int isBot,
+							 String receivedBy , String seenBy , String message , String inline , String keyboard , int date)
+	{
+		if(db.addMessage(mess_id , user_id , user_nick ,  user_color,
+			chat_id , type , reply , shared , isEdited , isBot,
+			 receivedBy ,  seenBy , message ,  inline ,  keyboard ,date)){
+				return "true";
+			}else return "false";
+		
+	}
+	
+	@JavascriptInterface
+	public String updateMessage(String mess_id , String user_id , String user_nick , String user_color,
+							 String chat_id , String type , String reply , int shared , int isEdited , int isBot,
+							 String receivedBy , String seenBy , String message , String inline , String keyboard , int date)
+	{
+		if(db.updateMessage(mess_id , user_id , user_nick ,  user_color,
+						 chat_id , type , reply , shared , isEdited , isBot,
+						 receivedBy ,  seenBy , message ,  inline ,  keyboard ,date)){
+			return "true";
+		}else return "false";
+
+	}
+	
+	@JavascriptInterface
+	public String updateMessageData(String chat_id , String mess_id , String key , String value){
+		if(db.updateMessageData(chat_id , mess_id , key , value)) return "true";
+		else return "false";
+	}
+	
+	@JavascriptInterface
+	public String getMessageData(String chat_id , String mess_id){
+		return db.getMessageData(chat_id , mess_id);
+	}
+	
+	@JavascriptInterface
+	public String getChatLength(String chat_id){
+		return db.getChatLength(chat_id);
+	}
+	
+	@JavascriptInterface
+	public String getAllMessInRoom(String chat_id , String start , String end){
+		return db.getAllMessInRoom(chat_id , start , end);
+	}
+	
+	@JavascriptInterface
+	public void deleteMessages(String chat_id){
+		db.deleteMessages(chat_id);
+	}
+	
+	@JavascriptInterface
+	public String getRoomMessages(String chat_id){
+		return db.getRoomMessages(chat_id);
 	}
 }
