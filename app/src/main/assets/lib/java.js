@@ -374,31 +374,6 @@ java.DB.createRoomTable = async () => {
  * return {boolean}
  **********/
 
-java.DB.createRoom = (data) => {
-    const {
-        chat_id,
-        pic,
-        type,
-        gType,
-        link,
-        name,
-        desc,
-        bgColor,
-        textColor,
-        owner,
-        admins,
-        members,
-        banList,
-        bots,
-        pinned,
-        level
-    } = data;
-    if (JSINTERFACE.createRoom(chat_id, pic, type, gType,
-            link, name, desc, bgColor, textColor, owner,
-            admins, members, banList, bots, pinned, level) == "true") return true;
-    else return false;
-}
-
 java.DB.updateRoom = (data) => {
     const {
         chat_id,
