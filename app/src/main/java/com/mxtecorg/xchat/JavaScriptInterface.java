@@ -342,6 +342,7 @@ public class JavaScriptInterface
 	    }
 		catch (Exception e)
 		{
+			Log.e("Statics" , ""+e);
 			return "{}";
 	    }
 	}
