@@ -15,6 +15,10 @@
   height: 100vh;
 }
 
+.text {
+  color: var(--app-accent-font-color);
+}
+
 .layout {
   z-index: 1;
 }

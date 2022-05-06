@@ -5,10 +5,12 @@ function s_login () {
   lay = Drawer.UI("login-layout", {
     draggable: false,
     position: "right",
-    size: screen.width,
+    size: app.width,
+    css_size: "100vw",
     duration: 300,
-    opacity: 0,
+    opacity: 1,
   });
+  lay.shadow.style.backgroundColor = "var(--app-accent-color)";
   lay.drawer.style.height = "100%";
   
   // elements register //
@@ -72,24 +74,9 @@ function s_login () {
   let v_token = create_input("Token:");
   
   function create_input (txt) {
-    let _cont= dom.create("div");
-    let _input = dom.create("input");
-    let _label = dom.create("label");
-    let _line = dom.create("span");
-    
-    _cont.dom.set("class", "edit-text");
-    _input.dom.set("class", "edit-text__input");
-    _label.dom.set("class", "edit-text__label");
-    _line.dom.set("class", "edit-text__line");
-    
-    _input.dom.set("placeholder", " ");
-    _label.innerText = txt;
-    _cont.dom.add([ _input, _label, _line ]);
-    
-    return {
-      layout: _cont,
-      input: _input
-    };
+    let input = new EditTextUI(dom.create("div"));
+    input.placeholder = txt;
+    return input;
   }
   
   
@@ -235,7 +222,17 @@ function s_login () {
           token: input.value
         }, 
         success: function(data) {
-          if(data.status) s_login.ok(data.data);
+          if(data.status) server.process({
+            url: URL.login,
+            method: "POST",
+            data_type: "json",
+            data: {
+              username: USER.user,
+              password: USER.pass
+            },
+            success: function(data){s_login.ok(data.data)},
+            error: function(s){app.alert("Error " + s)}
+          });
           else app.alert(data.data);
           app.loading.hidden();
         },

@@ -11,10 +11,16 @@
   height: 60px;
   border-radius: 200px;
   color: var(--app-primary-font-color);
-  background: var(--app-primary-color);
   
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 2;
   
+  -webkit-transition: background .4s;
+  background: var(--app-primary-color);
+}
+.fab:active {
+  -webkit-transition: background .4s;
+  background: var(--app-primary-lightcolor);
 }

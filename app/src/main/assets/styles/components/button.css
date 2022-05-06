@@ -1,0 +1,12 @@
+/**
+   BUTTON
+**/
+
+.button-offset {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  padding: 5px 10px;
+ }

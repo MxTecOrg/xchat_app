@@ -13,14 +13,17 @@ theme.light = function(){
     "--app-accent-font-color: #000000;" +
     
     "--app-primary-color: #1d6071;" +
+    "--app-primary-lightcolor: #2e7182;" +
     "--app-primary-font-color: #ffffff;" +
     "--app-primary-font-lightcolor: #aaaaaa;" +
     
-    "--app-control-color: #0000ff;" +
-    "--app-control-lightcolor: #aaaaff;"
+    "--app-control-color: var(--app-primary-color);" +
+    "--app-control-lightcolor: var(--app-primary-lightcolor);" +
+    
+    "--chat-wallpaper: url('"+ PATH.img +"/light-wallpaper.png');"
   );
   java.setAppColor("#1d6071", "#1d6071");
-}
+};
 
 // dark //
 theme.dark = function(){
@@ -30,12 +33,15 @@ theme.dark = function(){
     "--app-accent-lightcolor: #444444;" +
     "--app-accent-font-color: #eeeeee;" +
     
-    "--app-primary-color: #565656;" +
+    "--app-primary-color: #353535;" +
+    "--app-primary-lightcolor: #444444;" +
     "--app-primary-font-color: #ffffff;" +
     "--app-primary-font-lightcolor: #aaaaaa;" +
     
-    "--app-control-color: #ffffff;" +
-    "--app-control-lightcolor: #999999;"
+    "--app-control-color: var(--app-primary-font-color);" +
+    "--app-control-lightcolor: var(--app-primary-font-lightcolor);"+
+    
+    "--chat-wallpaper: url('"+ PATH.img +"/dark-wallpaper.png');"
   );
-  java.setAppColor("#565656", "#565656");
+  java.setAppColor("#353535", "#272727");
 };

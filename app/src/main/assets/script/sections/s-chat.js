@@ -4,30 +4,54 @@
 
 function s_chat () {
   let layout = Drawer.UI("chat-screen", {
-    draggable: false,
+    draggable: true,
     position: "bottom",
     duration: 400,
     animation: "smooth",
     exitDuration: 200,
     size: app.height,
+    css_size: "100vh",
     opacity: 0,
   });
+  /*layout.drawer.style.background = "var(--app-assent-color)";
+  layout.drawer.style.backgroundSize = "100%";*/
   let layer_container = document.getElementById("chat-layercontainer");
   let textToolBar = document.querySelector("#chat-screen .tool-bar--center strong");
+  let input = layout.drawer.querySelector(".action-bar--input");
+  
+  let room = null;
+  let last_room = null;
+  
   layout.on("open", function(){ app.screen = s_chat });
   layout.on("close", function(){ app.screen = s_main });
   s_chat.layout = layout;
   
   /* CREATE CHATS */
-  let last_room = null;
-  s_chat.setChat = function(name, smss){
-    //let layer = document.createElement("div");
-    textToolBar.innerText = name;
+  s_chat.setChat = function(_room){
+    if(room) room.input_value = input.textContent;
+    last_room = room;
+    room = _room;
+    if(!room.layout) {
+      room.layout = document.createElement("div");
+      for (let sms of room.messages) room.layout.appendChild(createSMS(sms.message, sms.isuser));
+      layer_container.appendChild(room.layout);
+    }
+    if(last_room) last_room.layout.style.display = "none";
+    room.layout.style.display = "flex";
+    textToolBar.innerText = room.name;
+    input.innerText = room.input_value?room.input_value:"";
   };
   
-  s_chat.showChat = function(name) {
+  function createSMS (txt, is_yoursms) {
+    let layer = document.createElement("div");
+    let sms = document.createElement("div");
     
-  };
+    layer.setAttribute("class", "sms-layer " + (is_yoursms?"m":"o") + "sms-layer");
+    sms.setAttribute("class", "sms");
+    sms.innerText = txt;
+    layer.appendChild(sms);
+    return layer;
+  }
 }
 
 s_chat.open = function(){ s_chat.layout.open() };

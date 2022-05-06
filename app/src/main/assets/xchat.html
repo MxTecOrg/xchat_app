@@ -30,9 +30,7 @@
         <div class="tool-bar--left">
           <i id="btn-open-drawer" class="fa fa-bars fa-lg" onclick="s_drawer.open()"></i>
         </div>
-        <div class="tool-bar--center">
-          <h2> </h2>
-        </div>
+        <div class="tool-bar--center"> <h2></h2> </div>
         <div class="tool-bar--right">
           <i id="btn-open-main-menu" class="fa fa-ellipsis-v fa-lg"></i>
         </div>
@@ -61,14 +59,14 @@
     <div id="contacts-screen">
       <div class="tool-bar">
         <div class="tool-bar--left">
-          <i id="back-contacts-lay" class="fa fa-arrow-left fa-lg" onclick="s_contacts.close()"></i>
+          <i class="fa fa-arrow-left fa-lg" onclick="s_contacts.close()"></i>
         </div>
         
         <div class="tool-bar--center"><h2> Contactos </h2></div>
         
-        <div class="tool-bar--right">
+        <!--div class="tool-bar-\-right">
           <i class="fa fa-search fa-lg"></i>
-        </div>
+        </div-->
       </div>
       
       <div class="list-view">
@@ -76,19 +74,33 @@
           <span><i class="fa fa-users"></i></span>
           <div> Crear Grupo </div>
         </li>
-        <li class="list-view--l">
-          <span><i class="fa fa-user"></i></span>
+        <li class="list-view--l" onclick="s_add_contacts.open()">
+          <span><i class="fa fa-user-plus"></i></span>
           <div>Añadir contacto</div>
         </li>
         <li class="list-view--divider"></li>
       </div>
     </div>
+    <div id="add-contacts-screen">
+      <div class="tool-bar">
+       <div class="tool-bar--left">
+          <i class="fa fa-arrow-left fa-lg" onclick="s_add_contacts.close()"></i>
+        </div>
+        <div class="tool-bar--center"><h2> Agregar contacto </h2></div>
+        <div class="tool-bar--right">
+          <i class="fa fa-check fa-lg" onclick="s_add_contacts.close()"></i>
+        </div>
+      </div>
+      
+      <div id="add-contacts--input"></div>
+    </div>
+    
     
     <!-- <LAY> CHAT -->
     <div id="chat-screen">
       <div class="tool-bar">
         <div class="tool-bar--left">
-          <i class="fa fa-arrow-left fa-lg" onclick="s_chat.close()"></i>
+          <i class="fa fa-arrow-down fa-lg" onclick="s_chat.close()"></i>
         </div>
         
         <div class="tool-bar--center">

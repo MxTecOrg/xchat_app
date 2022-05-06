@@ -1,0 +1,57 @@
+/*
+  CHAT ACTION BAR 
+*/
+
+.action-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: flex-end;
+  color: var(--app-primary-font-color);
+  
+  width: 100%;
+}
+.action-bar--left {
+  flex-grow: 1;
+  border-radius: 20px;
+  min-height: 30px;
+  background: var(--app-primary-color);
+  
+  margin: 5px;
+  margin-right: .5px;
+  display: flex;
+  align-items: flex-end;
+}
+.action-bar--left > i {
+  margin: 10px;
+  font-size: 1.5em;
+}
+.action-bar--send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  margin: 5px;
+  margin-left: 1px;
+  width: 45px;
+  height: 45px;
+  
+  border-radius: 100px;
+  background: var(--app-primary-color);
+}
+
+/* edittext */
+.action-bar--input {
+  flex-grow: 1;
+  align-self: center;
+  
+  max-height: 5rem;
+  margin: 5px 0;
+  overflow: scroll;
+  word-break: break-word;
+  outline: none;
+}
+.action-bar--input:empty:before {
+  content: "Escribe...";
+  color: var(--app-primary-font-lightcolor);
+}

@@ -2,9 +2,12 @@
 @import url("./components/loading.css");
 @import url("./components/tool-bar.css");
 @import url("./components/fab.css");
+@import url("./components/button.css");
 @import url("./components/edit-text.css");
 @import url("./components/tab-layout.css");
 @import url("./components/list-view.css");
+
+@import url("./components/chat-action-bar.css");
 
 * {
   margin: 0;
@@ -21,5 +24,6 @@ button:focus, input:focus {
 body {
   width: 100vw;
   height: 100vh;
+  color: var(--app-accent-font-color);
   background-color: var(--app-accent-color);
 }

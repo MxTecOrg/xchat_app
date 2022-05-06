@@ -11,22 +11,18 @@
   --app-accent-font-color: 0;
   
   --app-primary-color: 0;
+  --app-primary-lightcolor: 0;
   --app-primary-font-color: 0;
   --app-primary-font-lightcolor: 0;
   
   --app-control-color: 0;
   --app-control-lightcolor: 0;
+  
+  --chat-wallpaper: 0;
 }
 
 #main-screen {
   display: none
-}
-
-#btn-open-drawer {
-  margin-right:  10px;
-}
-#back-contacts-lay {
-  margin: 5px;
 }
 
 #app-drawer {

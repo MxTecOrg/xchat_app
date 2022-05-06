@@ -8,11 +8,14 @@ var LoadRooms = async function () {
   /** test **/
   CreateRoomUI({
     name: "El Cabra",
-    messages: ["mensaje de prueba"]
+    messages: [
+      {message: "mensalals skdjj skfkfk skdkfkkg skdkfkgkgk sdkfkkgje de prueba", isuser: true},
+      {message: "otro mas", isuser: false},
+    ]
   });
   CreateRoomUI({
     name: "Fulanito",
-    messages: ["hello world"]
+    messages: []
   });
   /** test **/
   if(rooms[0]) for(var room of rooms) {
@@ -42,10 +45,10 @@ function CreateRoomUI (room) {
   last_sms.setAttribute("class", "text-overflow");
   
   title.innerText = room.name;
-  if(smss.length) last_sms.innerText = smss[smss.length - 1];
+  if(smss.length) last_sms.innerText = smss[smss.length - 1].message;
   
   layer.onclick = function(e){
-    s_chat.setChat(room.name);
+    s_chat.setChat(room);
     s_chat.open();
   };
   
@@ -57,5 +60,5 @@ function CreateRoomUI (room) {
 }
 
 function SOCKET__GetRoomData (data) {
-  
+  app.debug("ws-getroomdata", data);
 }

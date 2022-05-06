@@ -2,6 +2,10 @@
   LOGIN SCREEN
 */
 
+#login-layout {
+  z-index: 20;
+}
+
 .login-layout {
   display: flex;
   flex-direction: column;

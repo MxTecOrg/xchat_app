@@ -21,8 +21,9 @@ app.script = function( url, callback ) {
 app.debug = function(title, txt){
   txt = txt?txt:title;
   title = txt?"":title;
-  let _show = typeof txt == "object"? JSON.stringify(txt) : txt;
-  alert("app.debug :::: " + title + "\n" + _show);
+  /*let _show = typeof txt == "object"? JSON.stringify(txt) : txt;
+  alert("app.debug :::: " + title + "\n" + _show);*/
+  console.log(txt);
   return txt;
 };
 

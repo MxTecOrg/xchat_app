@@ -5,6 +5,7 @@
 #welcome-layout {
   display: flex;
   flex-direction: column;
+  z-index: 20;
 }
 #welcome-layout--top {
   flex-grow: 5;
@@ -49,4 +50,6 @@
   right: 7px;
   z-index: 3;
   color: var(--app-control-color);
+  
+  z-index: 21;
 }

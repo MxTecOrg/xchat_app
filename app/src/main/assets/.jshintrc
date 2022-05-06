@@ -24,6 +24,7 @@
     
     "s_login": true,
     "s_main": true,
+    "s_chat": true,
     "s_welcome": true,
     "s_contacts": true,
     "s_drawer": true,
@@ -31,6 +32,7 @@
     
     "PATH": true,
     "URL": true,
+    "TOKEN": true,
     "USER": true
   }
 }

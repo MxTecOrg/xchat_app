@@ -13,8 +13,9 @@ function s_welcome () {
     exitDuration: 300,
     draggable: false,
     size: screen.width,
-    opacity: 0,
+    opacity: 1,
   });
+  lay.shadow.style.backgroundColor = "var(--app-accent-color)";
   lay.drawer.style.height = "100%";
   lay.add = function(obj) {
     lay.drawer.appendChild(obj);
@@ -134,7 +135,7 @@ function s_welcome () {
        scroll(actualScroll, in_section * screen.width, mov);
        
        if(_exit){
-          lay.close();
+          window.setTimeout(function(){lay.close()}, 1000);
           s_login.open();
        }
     }
