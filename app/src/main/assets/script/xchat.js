@@ -14,7 +14,7 @@ app.script( PATH.js + "/sections/s-welcome.js");
 app.script( PATH.js + "/sections/s-login.js");
 
 if(TEST_ENABLE) app.script(PATH.js + "/debug-mode.js");
-if(!TEST_ENABLE) app.debug = s=>s;
+if(!TEST_ENABLE) app.debug = s => s;
 
 function OnStart(){
   app.screen = s_main;
@@ -35,26 +35,31 @@ function OnStart(){
       InitMainApp();
       app.loading.hidden();
   }
-  else {
-    s_welcome();
-    s_login();
-  }
+  else InitWelcome();
 }
 
 function InitMainApp(){
-  s_welcome = null; s_login = null;
-    
-  s_main(); // main screen init
-  s_chat(); // chat screen init
-  s_drawer(); // drawer init
-  s_contacts(); // contacts screen init
+  delete window.InitMainApp;
+  delete window.InitWelcome;
+  delete window.s_welcome;
+  delete window.s_login;
+  
+  s_main(); app.debug("init-main", "main screen loaded"); // main screen init
+  s_chat(); app.debug("init-main", "chat screen loaded"); // chat screen init
+  s_drawer(); app.debug("init-main", "drawer screen loaded"); // drawer init
+  s_contacts(); app.debug("init-main", "contacts screen loaded"); // contacts screen init
   
   /* load app files */
-  java.createDir(PATH.data + "/Rooms");
-  java.createDir(PATH.data + "/Multimedia");
+  java.createDir(PATH.data + "/rooms");
+  java.createDir(PATH.data + "/multimedia");
   
   /* socket */
   Connect();
+}
+
+function InitWelcome () {
+  s_welcome(); app.debug("init-main", "welcome screen loaded");
+  s_login(); app.debug("init-main", "login screen loaded");
 }
 
 
@@ -68,9 +73,3 @@ function OnBack(){ app.screen.close() }
 /*//////////////////////////*/
 function OnPause(){}
 function OnResume(){}
-
-
-  /*/////////////////////////*/
- /*/ Webview console error /*/
-/*/////////////////////////*/
-function OnError(error){}

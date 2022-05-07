@@ -1,9 +1,9 @@
 app = {};
-let spam = null;
 
 // screen //
 app.width = window.innerWidth;
 app.height = window.innerHeight;
+app.reload = function(){window.location.reload()};
 
 // import //
 app.script = function( url, callback ) {
@@ -19,11 +19,10 @@ app.script = function( url, callback ) {
 
 // debug //
 app.debug = function(title, txt){
-  txt = txt?txt:title;
-  title = txt?"":title;
-  /*let _show = typeof txt == "object"? JSON.stringify(txt) : txt;
-  alert("app.debug :::: " + title + "\n" + _show);*/
-  console.log(txt);
+  if(txt) title += "  ➤";
+  else { txt = title; title = "" }
+  java.log(title, txt);
+  console.log(title, txt);
   return txt;
 };
 
@@ -75,7 +74,7 @@ app.wall = {
   init: function(){
     let lay = dom.create("div");
     lay.dom.style({
-      zIndex: 999,
+      zIndex: "9999 !important",
       position: "fixed",
       display: "none",
       top: 0,
@@ -102,8 +101,19 @@ app.load_data = function (place, def) {
   if(data) return JSON.parse(data).d;
   else return def;
 };
+app.clear_data = function () {localStorage.clear()};
 app.remove_data = function (place) {localStorage.removeItem(place)};
 
+// database json //
+app.save_json = function(place, data, file = "app"){
+  java.createDir( PATH.data + "/" + file);
+  return java.writeFileSync( PATH.data + "/" + file + "/" + place, JSON.stringify(data));
+};
+app.load_json = function(place, def, file = "app"){
+  let data = java.readFileSync( PATH.data + "/" + file + "/" + place );
+  if(data) return JSON.parse(data);
+  else return def;
+};
 
 // audio //
 app.playSound = function (src) {
@@ -113,11 +123,8 @@ app.playSound = function (src) {
 
 // alert //
 app.alert = function (txt, callback) {
-  spam.alert({
-    title: null,
-    text: txt,
-    action: callback
-  });
+  alert(txt);
+  if(callback) callback();
 };
 
 // app init //
@@ -125,7 +132,6 @@ app.start = function(){
   document.head = document.getElementsByTagName("head")[0];
   document.body = document.getElementsByTagName("body")[0];
   app.loading.init();
-  spam = new Spam();
   app.wall.init();
   app.isStart = true;
   if(window.OnStart) OnStart();

@@ -22,7 +22,7 @@ TOKEN = app.load_data("token");
 
 /* user data */
 USER = app.load_data("user-data", {
-  user: null,
+  name: null,
   pass: null,
   email: null
 });

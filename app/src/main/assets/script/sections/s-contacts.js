@@ -63,3 +63,15 @@ s_add_contacts.add = function(txt){
     txt = s_add_contacts.input.input.value;
   }
 };
+
+/**
+  LOGIC CONTACTS
+**/
+var contacts = {
+  save: function(d){
+    
+  },
+  getAll: function(){
+    
+  }
+}

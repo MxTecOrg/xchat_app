@@ -161,18 +161,20 @@ function s_login () {
       data_type: "json",
       success: function(data){
         app.loading.hidden();
+        app.debug("register", data.data);
         if(data.status) {
-          USER.user = req.username;
+          USER.name = req.username;
           USER.email = req.email;
           USER.pass = req.password;
           verify_txt.innerText = "Se te a enviado un token de verificación a tu correo " + USER.email;
           app.save_data("user-data", USER);
           _change(verify_layout, register_layout);
         }
-        else app.alert(data.data)
+        else app.alert(data.data);
       },
       error: function(s){ 
-        app.alert("Error " + s);
+        app.debug("register", "http-error:" + s);
+        app.alert("HTTP-Error: " + s);
         app.loading.hidden();
       }
     });
@@ -195,16 +197,28 @@ function s_login () {
         if(data.status){
           USER.name = req.username;
           USER.pass = req.password;
+          app.debug("login", "OK");
           s_login.ok(data.data);
         }
-        else app.alert(data.data);
+        else {
+          app.debug("login", data.data);
+          if(data.data == "ACC_NOT_VERIFIED"){
+            USER.name = req.username;
+            USER.pass = req.password;
+            USER.email = data.email;
+            _change(verify_layout, auth_layout);
+            resend_token();
+          }
+          else app.alert(data.data);
+        }
         app.loading.hidden();
       },
       error: function(s){ 
-        app.alert("Error " + s);
+        app.debug("login", "http-error:" + s);
+        app.alert("HTTP-Error: " + s);
         app.loading.hidden();
       }
-    })
+    });
   };
   
   // submit verify //
@@ -227,17 +241,27 @@ function s_login () {
             method: "POST",
             data_type: "json",
             data: {
-              username: USER.user,
+              username: USER.name,
               password: USER.pass
             },
-            success: function(data){s_login.ok(data.data)},
-            error: function(s){app.alert("Error " + s)}
+            success: function(data){
+              app.debug("verify token", data.data)
+              s_login.ok(data.data)
+            },
+            error: function(s){
+              app.alert("HTTP-Error: " + s);
+              app.debug("verify token", "http-error:" + s);
+            }
           });
-          else app.alert(data.data);
+          else {
+            app.alert(data.data);
+            app.debug("verify token", data.data);
+          }
           app.loading.hidden();
         },
         error: function(s){
-          app.alert("Error " + s);
+          app.alert("HTTP-Error: " + s);
+          app.debug("verify token", "http-error:" + s);
           app.loading.hidden();
         }
       });
@@ -245,7 +269,8 @@ function s_login () {
   };
   
   // resend verify //
-  verify_re.onclick = function(){
+  verify_re.onclick = resend_token;
+  function resend_token(){
     app.loading.show();
     verify_re.style.display = "none";
     
@@ -255,12 +280,12 @@ function s_login () {
       data_type: "json",
       method: "POST",
       success: function(data){
-        if(data.status) app.alert("enviado");
-        else app.alert(data.data);
+        if(data.status) app.debug("re-verify token", data.data);
+        else app.debug("re-verify token", data.data);
         app.loading.hidden();
       },
       error: function(s){ 
-        app.alert("Error " + s);
+        app.debug("re-verify token", "http-error: " + s);
         app.loading.hidden();
       }
     })
@@ -274,10 +299,12 @@ s_login.open = function(){ s_login.layout.open() };
 s_login.close = function(){ s_login.layout.close() };
 s_login.ok = function(token){
   app.loading.show();
-  s_welcome.toggle_theme.style.display = "none";
-  TOKEN = app.save_data("token" , token);
-  s_login.close();
-  InitMainApp();
-  app.save_data("authenticated", true);
+  
+  TOKEN = app.save_data("token" , token); //save token
+  s_welcome.toggle_theme.style.display = "none"; //hidden toggle theme
+  s_login.close(); //close login screen
+  app.save_data("authenticated", true); //save authenticated state
+  InitMainApp(); //init app
+  
   app.loading.hidden();
 }

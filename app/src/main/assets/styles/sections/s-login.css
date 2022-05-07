@@ -27,7 +27,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   padding: 5px 20px;
+  padding-top: 10px;
+  max-width: 80%;
   background: var(--app-accent-color);
   
   border: solid var(--app-control-color);

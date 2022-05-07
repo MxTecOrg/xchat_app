@@ -1,6 +1,8 @@
+app.script( PATH.js + "/client/alert.js");
 app.script( PATH.js + "/client/user-data.js");
 app.script( PATH.js + "/client/rooms.js");
 app.script( PATH.js + "/client/messages.js");
+app.script( PATH.js + "/client/contacts.js");
 
 SOCKET = null;
 
@@ -25,20 +27,20 @@ function Connect () {
     cors: { origin: null }
   });
   SOCKET.on("connect", function(){
-    java.toast("Conectado...");
+    app.debug("ws->connect", "CONNECT");
     window.clearInterval(txt_main_interval);
     txt_main.innerText = app.APP_NAME;
   });
   SOCKET.on("reconnect", function(){
-    java.toast("Reconectando...");
+    app.debug("ws->connect", "RECONNECT");
   });
   SOCKET.on("disconnect", function(){
-    java.toast("Desconectado...");
+    app.debug("ws->connect", "DISCONNECT");
     txt_main_loading("Conectando");
   });
   
   /** listeners **/
-  SOCKET.on("alert", s => app.debug(s));
+  SOCKET.on("alert", SOCKET__Alert);
   SOCKET.on("load-user", SOCKET__LoadUser);
   SOCKET.on("get-room-data", SOCKET__GetRoomData);
   SOCKET.on("get-room-mess", SOCKET__GetRoomMessage);

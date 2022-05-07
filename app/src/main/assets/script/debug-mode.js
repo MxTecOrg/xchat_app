@@ -1,4 +1,6 @@
 /** DEBUG MODE **/
 app.script( PATH.lib + "/eruda.min.js", function(){
-  eruda.init();
+  eruda.init({
+    tool: ["console", "elements", "network", "resources", "snippets"]
+  });
 });
