@@ -25,6 +25,8 @@ public class MainActivity extends Activity
 	private final static int FILECHOOSER_RESULTCODE = 1;
 	private WebView webview;
 	private Button fakeClick;
+	private TimerTask timerTask;
+	private Splash splash; // = new Splash();
 
 	public static WeakReference<MainActivity> weakActivity;
 	public static MainActivity getmInstanceActivity()
@@ -41,6 +43,10 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 		getExternalFilesDir(null);
         webview = findViewById(R.id.webview);
+		splash = new Splash();
+        splash.showDialog();
+
+
 		//webview.loadUrl("file:///" + Environment.getExternalStorageDirectory().getAbsolutePath() + "/xchat/xchat.html");
 		webview.loadUrl("file:///android_asset/xchat.html");
 
@@ -69,7 +75,7 @@ public class MainActivity extends Activity
 				}
 			});
 	}
-
+	
 	public boolean isLoaded = false;
 
 	public void playSound()
@@ -126,7 +132,17 @@ public class MainActivity extends Activity
 		public void onProgressChanged(WebView view, int newProgress)
 		{
 		    // TODO: Implement this method
-			if (newProgress == 100) isLoaded = true;
+			if (newProgress == 100) {
+	            isLoaded = true;
+				Timer timer = new Timer();
+				timer.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							// Your database code here
+							splash.closeDialog();
+						}
+					}, 1500);
+		    }
 			super.onProgressChanged(view, newProgress);
 		}
 
@@ -243,5 +259,36 @@ public class MainActivity extends Activity
 		}
 		else
 			Toast.makeText(MainActivity.this, "Fallo al cargar el archivo", Toast.LENGTH_LONG).show();
+	}
+
+	public class Splash
+	{
+        final Dialog dialog = new Dialog(MainActivity.this , android.R.style.Theme_Black_NoTitleBar_Fullscreen );
+		public void showDialog()
+		{
+			
+			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			dialog.setCancelable(false);
+			dialog.setContentView(R.layout.splash_screen);
+            /*
+			 TextView text = (TextView) dialog.findViewById(R.id.text_dialog);
+			 text.setText(msg);
+
+			 Button dialogButton = (Button) dialog.findViewById(R.id.btn_dialog);
+			 dialogButton.setOnClickListener(new View.OnClickListener() {
+			 @Override
+			 public void onClick(View v) {
+			 dialog.dismiss();
+			 }
+			 });
+			 */
+			dialog.show();
+
+		}
+
+		public void closeDialog()
+		{
+			dialog.dismiss();
+		}
 	}
 } 
