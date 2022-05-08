@@ -28,7 +28,7 @@ json = {
   CONTACTS: "Contactos",
   CREATE_GROUP: "Crear Grupo",
   ADD_CONTACT: "Añadir Contacto",
-  ADD_CONTACT_INPUT: "ID o Correo",
+  ADD_CONTACT_INPUT: "Correo",
   
   
   SEND: "Enviar",

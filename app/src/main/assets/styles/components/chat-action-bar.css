@@ -34,7 +34,8 @@
   margin: 5px;
   margin-left: 1px;
   width: 45px;
-  height: 45px;
+  min-width: 45px;
+  min-height: 45px;
   
   border-radius: 100px;
   background: var(--app-primary-color);
