@@ -44,4 +44,5 @@ class TabLayout {
   /* method component */
   open ( id ) { this.tabs[id].click() }
   getLayer ( id ) { return this.layers[id] }
+  getTab ( id ) { return this.tabs[id] }
 }

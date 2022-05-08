@@ -1,11 +1,13 @@
 app.PACKAGE_NAME = java.STATICS.appPackage;
 app.APP_NAME = java.STATICS.appName;
+app.LANG = java.STATICS.lang || "es";
 
 /* test */
 TEST_ENABLE = 1;
 
 /* directory paths */
 PATH = {
+  this: location.href.replace("/xchat.html", "").replace("file:///sdcard", "/storage/emulated/0"),
   img: "./src",
   snd: "./src",
   js:  "./script",
@@ -36,3 +38,10 @@ URL = {
   resendToken: java.STATICS.host + java.STATICS.resendToken,
   verify: java.STATICS.host + java.STATICS.verify,
 };
+
+/* strings */
+STRING = java.readFileSync(PATH.this + "/string/"+ app.LANG + "/" + app.LANG + ".json");
+STRING = JSON.parse(STRING);
+
+RAW = java.readFileSync(PATH.this + "/string/"+ app.LANG + "/raw-" + app.LANG + ".json");
+RAW = JSON.parse(RAW);

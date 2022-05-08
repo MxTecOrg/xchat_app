@@ -5,9 +5,15 @@ function s_main () {
   
   lay.style.display = "flex";
   
+  //* layers tab *//
   chat_layout = tabs.getLayer(0);
   canals_layout = tabs.getLayer(1);
   bots_layout = tabs.getLayer(2);
+  
+  //* tabs *//
+  tabs.getTab(0).innerText = STRING.CHATS.toUpperCase();
+  tabs.getTab(1).innerText = STRING.STATES.toUpperCase();
+  tabs.getTab(2).innerText = STRING.BOTS.toUpperCase();
   
   s_main.closeTime = 0;
   s_main.layout = lay;
@@ -19,7 +25,7 @@ s_main.open = function(){};
 s_main.close = function(){
   if(Date.now() - s_main.closeTime < 800) java.exitApp();
   else {
-    java.toast("Toque nuevamente para salir");
+    java.toast(STRING.QUIT);
     s_main.tabs.open(0);
   }
   s_main.closeTime = Date.now();

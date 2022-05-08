@@ -27,8 +27,8 @@ function s_login () {
   register_body.dom.set("class", "login-layout--body");
   register_submit.dom.set("class", "login-layout--submit");
   
-  register_head.innerText = "Registrarse";
-  register_submit.innerText = "Enviar";
+  register_head.innerText = STRING.REGISTER;
+  register_submit.innerText = STRING.SEND;
   
   // elements auth //
   let auth_layout = dom.create("div");
@@ -45,8 +45,8 @@ function s_login () {
   auth_body.dom.set("class", "login-layout--body");
   auth_submit.dom.set("class", "login-layout--submit");
   
-  auth_submit.innerText = "Acceder";
-  auth_head.innerText = "Iniciar Sesión";
+  auth_submit.innerText = STRING.ACCESS;
+  auth_head.innerText = STRING.LOGIN;
   
   //elements verify
   let verify_layout = dom.create("div");
@@ -57,21 +57,21 @@ function s_login () {
   
   verify_re.href = "#";
   verify_re.dom.set("class", "login-toggle");
-  verify_re.innerText = "Reenviar token";
+  verify_re.innerText = STRING.RESEND_TOKEN;
   verify_layout.dom.set("class", "login-layout hidden");
   verify_layout.style.display = "none";
   verify_head.dom.set("class", "login-layout--head");
-  verify_head.innerText = "Verificación";
+  verify_head.innerText = STRING.VERIFY_TOKEN;
   verify_body.dom.set("class", "login-layout--body");
   
   /* components edittext */
-  let r_name = create_input("Usuario:");
-  let r_email = create_input("Email:");
-  let r_pass = create_input("Contraseña:");
-  let r_rpass = create_input("Repite la contraseña:");
-  let a_name = create_input("Usuario:");
-  let a_pass = create_input("Contraseña:");
-  let v_token = create_input("Token:");
+  let r_name = create_input(STRING.USER + ":");
+  let r_email = create_input(STRING.EMAIL + ":");
+  let r_pass = create_input(STRING.PASSWORD + ":");
+  let r_rpass = create_input(STRING.REPASSWORD + ":");
+  let a_name = create_input(STRING.USER + ":");
+  let a_pass = create_input(STRING.PASSWORD + ":");
+  let v_token = create_input(STRING.TOKEN + ":");
   
   function create_input (txt) {
     let input = new EditTextUI(dom.create("div"));
@@ -81,8 +81,8 @@ function s_login () {
   
   
   // switch register/auth //
-  register_change.innerText = "¿Ya tienes una cuenta?";
-  auth_change.innerText = "¿Aún no tienes una cuenta? Regístrate.";
+  register_change.innerText = STRING.TO_LOGIN;
+  auth_change.innerText = STRING.TO_REGISTER;
   register_change.onclick = function(){
     _change(auth_layout, register_layout);
   };
@@ -166,15 +166,15 @@ function s_login () {
           USER.name = req.username;
           USER.email = req.email;
           USER.pass = req.password;
-          verify_txt.innerText = "Se te a enviado un token de verificación a tu correo " + USER.email;
+          verify_txt.innerText = STRING.INFO_VERIFY_TOKEN.replace("%%email%%", USER.email);
           app.save_data("user-data", USER);
           _change(verify_layout, register_layout);
         }
-        else app.alert(data.data);
+        else java.toast(RAW[data.data]);
       },
       error: function(s){ 
         app.debug("register", "http-error:" + s);
-        app.alert("HTTP-Error: " + s);
+        java.toast("HTTP-Error: " + s);
         app.loading.hidden();
       }
     });
@@ -209,13 +209,13 @@ function s_login () {
             _change(verify_layout, auth_layout);
             resend_token();
           }
-          else app.alert(data.data);
+          else java.toast(RAW[data.data]);
         }
         app.loading.hidden();
       },
       error: function(s){ 
         app.debug("login", "http-error:" + s);
-        app.alert("HTTP-Error: " + s);
+        java.toast("HTTP-Error: " + s);
         app.loading.hidden();
       }
     });
@@ -249,18 +249,18 @@ function s_login () {
               s_login.ok(data.data)
             },
             error: function(s){
-              app.alert("HTTP-Error: " + s);
+              java.toast("HTTP-Error: " + s);
               app.debug("verify token", "http-error:" + s);
             }
           });
           else {
-            app.alert(data.data);
+            java.toast(RAW[data.data]);
             app.debug("verify token", data.data);
           }
           app.loading.hidden();
         },
         error: function(s){
-          app.alert("HTTP-Error: " + s);
+          java.toast("HTTP-Error: " + s);
           app.debug("verify token", "http-error:" + s);
           app.loading.hidden();
         }
@@ -272,7 +272,6 @@ function s_login () {
   verify_re.onclick = resend_token;
   function resend_token(){
     app.loading.show();
-    verify_re.style.display = "none";
     
     server.process({
       url: URL.resendToken,
@@ -280,11 +279,16 @@ function s_login () {
       data_type: "json",
       method: "POST",
       success: function(data){
-        if(data.status) app.debug("re-verify token", data.data);
+        if(data.status) {
+          verify_re.style.display = "none";
+          app.debug("re-verify token", data.data);
+        }
         else app.debug("re-verify token", data.data);
+        java.toast(RAW[data.data]);
         app.loading.hidden();
       },
-      error: function(s){ 
+      error: function(s){
+        java.toast("HTTP-Error: " + s);
         app.debug("re-verify token", "http-error: " + s);
         app.loading.hidden();
       }

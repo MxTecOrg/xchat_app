@@ -53,10 +53,10 @@ function s_welcome () {
   box_lay_top.style.height = "100%";
   lay_top.id = "welcome-layout--top";
   
-  create_section(PATH.img + "/foto1.png", "App de mensajería");
-  create_section(PATH.img + "/foto2.png", "Destinada a algo");
-  create_section(PATH.img + "/foto3.png", "Blablabla superaplicación");
-  create_section(PATH.img + "/foto4.png", "Disfrute");
+  create_section(PATH.img + "/foto1.png", STRING.WELCOME_1);
+  create_section(PATH.img + "/foto2.png", STRING.WELCOME_2);
+  create_section(PATH.img + "/foto3.png", STRING.WELCOME_3);
+  create_section(PATH.img + "/foto4.png", STRING.WELCOME_4);
   box_lay_top.style.width = sections_list.length * 100 + "%";
   
   // crear seccion //

@@ -13,6 +13,7 @@ function s_contacts () {
     css_size: "100vw",
     opacity: 0,
   });
+  layout.drawer.querySelector(".tool-bar--center > h2").innerText = STRING.CONTACTS;
   
   layout.on("open", function(){ app.screen = s_contacts });
   layout.on("close", function(){ app.screen = s_main });
@@ -20,7 +21,17 @@ function s_contacts () {
   s_contacts.layout = layout;
   
   // inicializar contacts //
-  new ListView(layout.drawer.querySelector(".list-view"));
+  let list_view = new ListView(layout.drawer.querySelector(".list-view"));
+  let li_create_group = list_view.addItem(null, STRING.CREATE_GROUP+"", "users");
+  let li_add_contact = list_view.addItem(null, STRING.ADD_CONTACT+"", "user-plus");
+  list_view.addDivider();
+  
+  li_add_contact = list_view.getItem(li_add_contact);
+  li_create_group = list_view.getItem(li_create_group);
+  
+  li_add_contact.onclick = function(){s_add_contacts.open()};
+  
+  s_contacts.list_view = list_view;
   s_add_contacts();
 }
 
@@ -42,6 +53,7 @@ function s_add_contacts () {
     css_size: "100vw",
     opacity: 0,
   });
+  layout.drawer.querySelector(".tool-bar--center > h2").innerText = STRING.ADD_CONTACT;
   let input = new EditTextUI( document.getElementById("add-contacts--input"));
   let send = layout.drawer.querySelector("i.fa-check");
   layout.drawer.style.alignItems = "center";

@@ -13,8 +13,7 @@ function s_chat () {
     css_size: "100vh",
     opacity: 0,
   });
-  /*layout.drawer.style.background = "var(--app-assent-color)";
-  layout.drawer.style.backgroundSize = "100%";*/
+
   let layer_container = document.getElementById("chat-layercontainer");
   let textToolBar = document.querySelector("#chat-screen .tool-bar--center strong");
   let input = layout.drawer.querySelector(".action-bar--input");
@@ -25,6 +24,7 @@ function s_chat () {
   layout.on("open", function(){ app.screen = s_chat });
   layout.on("close", function(){ app.screen = s_main });
   s_chat.layout = layout;
+  document.styleSheets[0].addRule(".action-bar--input:empty:before", "content:\"" + STRING.CHAT_INPUT + "\"");
   
   /* CREATE CHATS */
   s_chat.setChat = function(_room){

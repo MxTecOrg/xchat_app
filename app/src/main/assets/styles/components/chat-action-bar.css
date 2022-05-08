@@ -52,6 +52,5 @@
   outline: none;
 }
 .action-bar--input:empty:before {
-  content: "Escribe...";
   color: var(--app-primary-font-lightcolor);
 }

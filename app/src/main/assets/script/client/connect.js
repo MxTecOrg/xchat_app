@@ -21,7 +21,7 @@ function Connect () {
   };
   
   /** connection **/
-  txt_main_loading("Conectando");
+  txt_main_loading(STRING.CONNECTING);
   SOCKET = io.connect(URL.socket, {
     query: "token=" + TOKEN,
     cors: { origin: null }
