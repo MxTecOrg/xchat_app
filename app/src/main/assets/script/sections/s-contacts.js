@@ -57,7 +57,7 @@ function s_add_contacts () {
   let input = new EditTextUI( document.getElementById("add-contacts--input"));
   let send = layout.drawer.querySelector("i.fa-check");
   layout.drawer.style.alignItems = "center";
-  input.placeholder = "Id/Email";
+  input.placeholder = STRING.ADD_CONTACT_INPUT;
   input.layout.style.width = "50%";
   
   layout.on("open", function(){ app.screen = s_add_contacts });
@@ -73,6 +73,8 @@ s_add_contacts.close = function(){ s_add_contacts.layout.close() };
 s_add_contacts.add = function(txt){
   if(!txt) {
     txt = s_add_contacts.input.input.value;
+    app.loading.show();
+    SOCKET.emit("add-contact", txt);
   }
 };
 

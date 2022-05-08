@@ -41,7 +41,9 @@ function Connect () {
   
   /** listeners **/
   SOCKET.on("alert", SOCKET__Alert);
+  SOCKET.on("toast", function(s){java.toast(RAW[s])});
   SOCKET.on("load-user", SOCKET__LoadUser);
+  SOCKET.on("add-contact", SOCKET__AddContact);
   SOCKET.on("get-room-data", SOCKET__GetRoomData);
   SOCKET.on("get-room-mess", SOCKET__GetRoomMessage);
   

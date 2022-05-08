@@ -7,11 +7,11 @@
     <style type="text/css"></style>
     <script>
        /*/ Webview console error /*/
-       function OnError(error){}//alert(error)}
+       function OnError(error){java.toast(error)}
     </script>
     
     <script src="lib/drawerbuild.min.js"></script>
-    <script src="lib/stylespam.min.js"></script>
+    <script src="lib/aes.min.js"></script>
     <script src="lib/socket-io.min.js"></script>
     <script src="lib/ajax-send.min.js"></script>
     <script src="lib/dom.min.js"></script>
@@ -83,7 +83,7 @@
         </div>
         <div class="tool-bar--center"><h2> Agregar contacto </h2></div>
         <div class="tool-bar--right">
-          <i class="fa fa-check fa-lg" onclick="s_add_contacts.close()"></i>
+          <i class="fa fa-check fa-lg" onclick="s_add_contacts.add()"></i>
         </div>
       </div>
       

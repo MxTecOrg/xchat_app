@@ -14,4 +14,6 @@ function SOCKET__Alert (raw) {
     app.reload();
   }
   
+  app.debug("ws->alert", raw);
+  
 }
