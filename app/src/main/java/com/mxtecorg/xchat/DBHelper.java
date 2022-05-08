@@ -20,7 +20,6 @@ public class DBHelper extends SQLiteOpenHelper
 
 	public static final String DATABASE_NAME = "database.db";
 
-	private HashMap hp;
 
 	public DBHelper(Context context)
 	{
@@ -56,10 +55,147 @@ public class DBHelper extends SQLiteOpenHelper
 		db.execSQL(
 		    "CREATE TABLE IF NOT EXISTS " + chat_id + " " +
 			"(" +
-			"mess_id text , user_id text , user_nick text , user_color text , chat_id text, " +
+			"mess_id integer , user_id integer , user_nick text , user_color text , chat_id integer, " +
 			"type text , reply text , shared integer , isEdited integer , isBot integer , " +
 			"receivedBy text , seenBy text , message text , inline text , keyboard text , date integer" +
 			")");
+	}
+	
+	public void createContactsTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL(
+		    "CREATE TABLE IF NOT EXISTS contacts " +
+			 "(" +
+			 "user_id integer , email text ,c_nick text ,  nick text , pic text , desc text , color text , statuses text" +
+			 ")"
+		    );
+	}
+	
+	public boolean createContact(int user_id , String email , String c_nick , String nick , String pic , String desc , String color , String statuses){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("user_id", user_id);
+		contentValues.put("email" , email);
+		contentValues.put("c_nick", c_nick);	
+		contentValues.put("nick", nick);
+		contentValues.put("pic", pic);
+		contentValues.put("desc", desc);
+		contentValues.put("color", color);
+		contentValues.put("statuses" , statuses);
+		
+		try
+		{
+			db.insert("contacts", null, contentValues);
+			return true;
+		}
+		catch (SQLiteException e)
+		{
+			Log.e("DB ex" , e + "");
+			return false;
+		}
+	}
+	
+	public boolean updateContact(int user_id , String email , String c_nick , String nick , String pic , String desc , String color , String statuses){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("user_id", user_id);
+		contentValues.put("email" , email);
+		contentValues.put("c_nick", c_nick);	
+		contentValues.put("nick", nick);
+		contentValues.put("pic", pic);
+		contentValues.put("desc", desc);
+		contentValues.put("color", color);
+		contentValues.put("statuses" , statuses);
+
+		try
+		{
+			db.update("contacts", contentValues , " user_id = ? " , new String[] {""+user_id});
+			return true;
+		}
+		catch (SQLiteException e)
+		{
+			Log.e("Ex Db" , "" + e);
+			return false;
+		}
+	}
+	
+	public boolean updateContactData(String chat_id , String key , String value)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(key, value);
+		db.update("contact", contentValues , " chat_id = ? " , new String[] {chat_id});
+		return true;
+	}
+	
+	public String getContactData(String user_id)
+	{
+		try
+		{
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor res =  db.rawQuery("SELECT * FROM  rooms WHERE user_id='" + user_id + "'" , null);
+			res.moveToFirst();
+			final String email = res.getString(res.getColumnIndex("email"));
+			final String c_nick = res.getString(res.getColumnIndex("c_nick"));
+			final String nick = res.getString(res.getColumnIndex("nick"));	
+			final String pic = res.getString(res.getColumnIndex("pic"));
+			final String desc = res.getString(res.getColumnIndex("desc"));
+			final String color = res.getString(res.getColumnIndex("color"));
+			final String statuses = res.getString(res.getColumnIndex("statuses"));	
+			
+
+			return "{\"user_id\" : \"" + user_id + "\"," +
+				"\"email\" : \"" + email + "\"," +
+				"\"c_nick\" : \"" + c_nick + "\"," +
+				"\"nick\" : \"" + nick + "\"," +
+				"\"pic\" : \"" + pic + "\"," +
+				"\"desc\" : \"" + desc + "\"," +
+				"\"color\" : \"" + color + "\"," +
+				"\"statuses\" : \"" + statuses + "\"" +
+				"}";
+		}
+		catch (SQLiteException e)
+		{
+			Log.e("DB err" , "" + e);
+			return "null";
+		}
+	}
+	
+	public String getAllContacts()
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor res =  db.rawQuery("SELECT * FROM  contacts" , null);
+		String ret = "";
+		int c = 0;
+		res.moveToFirst();
+		while (res.isAfterLast() == false)
+		{
+			ret += res.getString(res.getColumnIndex("user_id")) + (c != 0 ? "," : "");
+			res.moveToNext();
+			c++;
+		}
+		return ret;
+	}
+	
+	public String getAllContactsData(){
+		String[] contacts = getAllContacts().split(",");
+		String ret = "{";
+		int c = 0;
+		for(String contact : contacts){
+			String data = getContactData(contact);
+			ret += (c != 0 ? "," : "") + "\"" + contact + "\":" + data;
+			c++;
+		}
+		ret += "}";
+		return ret;
+	}
+	
+	public Integer deleteContact(String user_id)
+	{
+		SQLiteDatabase db = this.getWritableDatabase();
+		return db.delete("contacts", 
+						 "user_id = ? ", 
+						 new String[] { user_id });
 	}
 
 
@@ -250,8 +386,8 @@ public class DBHelper extends SQLiteOpenHelper
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("mess_id", mess_id);
 		contentValues.put("user_id", user_id);	
-		contentValues.put("user_nick", user_nick);
-		contentValues.put("user_color", user_color);
+		contentValues.put("nick", user_nick);
+		contentValues.put("color", user_color);
 		contentValues.put("chat_id", chat_id);
 		contentValues.put("type", type);
 		contentValues.put("reply", reply);	
@@ -286,8 +422,8 @@ public class DBHelper extends SQLiteOpenHelper
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("mess_id", mess_id);
 		contentValues.put("user_id", user_id);	
-		contentValues.put("user_nick", user_nick);
-		contentValues.put("user_color", user_color);
+		contentValues.put("nick", user_nick);
+		contentValues.put("color", user_color);
 		contentValues.put("chat_id", chat_id);
 		contentValues.put("type", type);
 		contentValues.put("reply", reply);	
@@ -322,8 +458,8 @@ public class DBHelper extends SQLiteOpenHelper
 			Cursor res =  db.rawQuery("SELECT * FROM " + chat_id + " WHERE mess_id='" + mess_id + "'" , null);
 			res.moveToFirst();
 			final String user_id = res.getString(res.getColumnIndex("user_id"));
-			final String user_nick = res.getString(res.getColumnIndex("user_nick"));	
-			final String user_color = res.getString(res.getColumnIndex("user_color"));
+			final String user_nick = res.getString(res.getColumnIndex("nick"));	
+			final String user_color = res.getString(res.getColumnIndex("color"));
 			final String type = res.getString(res.getColumnIndex("type"));
 			final String reply = res.getString(res.getColumnIndex("reply"));
 			final int shared = res.getInt(res.getColumnIndex("shared"));	
@@ -339,8 +475,8 @@ public class DBHelper extends SQLiteOpenHelper
 			return "{\"chat_id\" : \"" + chat_id + "\"," +
 				"\"mess_id\" : \"" + mess_id + "\"," +
 				"\"user_id\" : \"" + user_id + "\"," +
-				"\"user_nick\" : \"" + user_nick + "\"," +
-				"\"user_color\" : \"" + user_color + "\"," +
+				"\"nick\" : \"" + user_nick + "\"," +
+				"\"color\" : \"" + user_color + "\"," +
 				"\"type\" : \"" + type + "\"," +
 				"\"reply\" : \"" + reply + "\"," +
 				"\"shared\" : \"" + shared + "\"," +

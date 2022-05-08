@@ -680,3 +680,43 @@ java.DB.deleteMessages = async (chat_id) => {
     if(mess == "null") return false;
     else return mess.split(",");
  }
+
+
+
+java.DB.createContactsTable = () => {
+    JSINTERFACE.createContactsTable();
+}
+
+
+java.DB.addContact = (user_id, email, c_nick, nick, pic, desc, color , statuses) => {
+    JSINTERFACE.createContact(user_id, email, c_nick, nick, pic, desc, color, statuses);
+}
+
+java.DB.updateContact = (user_id, email, c_nick, nick, pic, desc, color, statuses) => {
+    JSINTERFACE.createContact(user_id, email, c_nick, nick, pic, desc, color, statuses);
+}
+
+
+java.DB.updateContactData = (user_id, key,value) => {
+    JSINTERFACE.updateContactData(user_id, key, value);
+}
+
+
+java.DB.getAllContacts = () => {
+    return JSINTERFACE.getAllContacts().split(",");
+}
+
+
+java.DB.getContactData = (user_id) => {
+    return JSINTERFACE.getContactData(user_id);
+}
+
+
+java.DB.getAllContactsData = () => {
+    return JSINTERFACE.getAllContactsData();
+}
+
+
+java.DB.deleteContact = (user_id) => {
+    JSINTERFACE.deleteContact(user_id);
+}

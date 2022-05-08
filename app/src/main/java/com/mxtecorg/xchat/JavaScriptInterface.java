@@ -490,4 +490,46 @@ public class JavaScriptInterface
 	public String getRoomMessages(String chat_id){
 		return db.getRoomMessages(chat_id);
 	}
+	
+	@JavascriptInterface
+	public void createContactsTable(){
+		db.createContactsTable();
+	}
+	
+	@JavascriptInterface
+	public void addContact(int user_id , String email , String c_nick , String nick , String pic ,
+	String desc , String color , String statuses){
+		db.createContact(user_id , email , c_nick , nick , pic , desc , color , statuses);
+	}
+	
+	@JavascriptInterface
+	public void updateContact(int user_id , String email , String c_nick , String nick , String pic ,
+						   String desc , String color , String statuses){
+		db.updateContact(user_id , email , c_nick , nick , pic , desc , color , statuses);
+	}
+	
+	@JavascriptInterface
+	public void updateContactData(String user_id , String key , String value){
+		db.updateContactData(user_id , key , value);
+	}
+	
+	@JavascriptInterface
+	public String getAllContacts(){
+		return db.getAllContacts();
+	}
+	
+	@JavascriptInterface
+	public String getContactData(String user_id){
+		return db.getContactData(user_id);
+	}
+	
+	@JavascriptInterface
+	public String getAllContactsData(){
+		return db.getAllContactsData();
+	}
+	
+	@JavascriptInterface
+	public void deleteContact(String user_id){
+		db.deleteContact(user_id);
+	}
 }
