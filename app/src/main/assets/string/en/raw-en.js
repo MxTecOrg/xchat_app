@@ -1,4 +1,4 @@
-{
+json = {
     "DATA_ERROR" : "An error ocurred while retrieving the data.",
     "EMPTY_USER" : "The username is empty.",
     "EMPTY_MAIL" : "The email is empty.",

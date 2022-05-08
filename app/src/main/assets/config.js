@@ -40,8 +40,5 @@ URL = {
 };
 
 /* strings */
-STRING = java.readFileSync(PATH.this + "/string/"+ app.LANG + "/" + app.LANG + ".json");
-STRING = JSON.parse(STRING);
-
-RAW = java.readFileSync(PATH.this + "/string/"+ app.LANG + "/raw-" + app.LANG + ".json");
-RAW = JSON.parse(RAW);
+app.script(PATH.this + "/string/" + app.LANG + "/" + app.LANG + ".js", function(){STRING = json});
+app.script(PATH.this + "/string/" + app.LANG + "/raw-" + app.LANG + ".js", function(){RAW = json; delete window.json});
