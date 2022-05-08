@@ -17,6 +17,9 @@ app.script = function( url, callback ) {
   script = null;
 };
 
+// inyect css //
+app.css = function(rule, props) {document.styleSheets[0].addRule(rule, props)};
+
 // debug //
 app.debug = function(title, txt){
   if(txt) title += "  ➤";
