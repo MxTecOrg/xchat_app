@@ -47,8 +47,8 @@ public class MainActivity extends Activity
         splash.showDialog();
 
 
-		//webview.loadUrl("file:///" + Environment.getExternalStorageDirectory().getAbsolutePath() + "/xchat/xchat.html");
 		webview.loadUrl("file:///android_asset/xchat.html");
+		//webview.loadUrl("/sdcard/P/XChat/app/src/main/assets/xchat.html");
 
 
 		JavaScriptInterface jsInterface = new JavaScriptInterface(this);
@@ -155,9 +155,13 @@ public class MainActivity extends Activity
 		@Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage)
 		{
-			webview.loadUrl("javascript:OnError(\"" + consoleMessage.message() + " -- From line "
+		  webview.loadUrl("javascript:OnConsole(\"" + consoleMessage.message() + " -- From line "
 							+ consoleMessage.lineNumber() + " of "
 							+ consoleMessage.sourceId() + "\");");
+			if(consoleMessage.messageLevel().toString().equals("ERROR")) webview.loadUrl("javascript:OnError(\"" + consoleMessage.message() + " -- From line "
+							+ consoleMessage.lineNumber() + " of "
+							+ consoleMessage.sourceId() + "\");");
+							
 			/*Log.i("Console" , consoleMessage.message() + " -- From line "
 			 + consoleMessage.lineNumber() + " of "
 			 + consoleMessage.sourceId());*/

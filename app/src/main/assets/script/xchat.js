@@ -16,6 +16,12 @@ if(TEST_ENABLE) app.script(PATH.js + "/debug-mode.js");
 
 function OnStart(){
   app.screen = s_main;
+  DB = java.DB;
+  
+  // SQL //
+  DB.createContactsTable();
+  DB.createRoomTable();
+  DB.createMessageTable();
   
   // load theme //
   theme();

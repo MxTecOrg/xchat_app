@@ -71,7 +71,7 @@ public class DBHelper extends SQLiteOpenHelper
 		    );
 	}
 	
-	public boolean createContact(int user_id , String email , String c_nick , String nick , String pic , String desc , String color , String statuses){
+	public boolean createContact(String user_id , String email , String c_nick , String nick , String pic , String desc , String color , String statuses){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("user_id", user_id);
@@ -95,7 +95,7 @@ public class DBHelper extends SQLiteOpenHelper
 		}
 	}
 	
-	public boolean updateContact(int user_id , String email , String c_nick , String nick , String pic , String desc , String color , String statuses){
+	public boolean updateContact(String user_id , String email , String c_nick , String nick , String pic , String desc , String color , String statuses){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("user_id", user_id);
@@ -133,7 +133,7 @@ public class DBHelper extends SQLiteOpenHelper
 		try
 		{
 			SQLiteDatabase db = this.getReadableDatabase();
-			Cursor res =  db.rawQuery("SELECT * FROM  rooms WHERE user_id='" + user_id + "'" , null);
+			Cursor res =  db.rawQuery("SELECT * FROM  contacts WHERE user_id='" + user_id + "'" , null);
 			res.moveToFirst();
 			final String email = res.getString(res.getColumnIndex("email"));
 			final String c_nick = res.getString(res.getColumnIndex("c_nick"));

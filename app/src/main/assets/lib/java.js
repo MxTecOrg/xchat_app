@@ -1,7 +1,7 @@
 /*************************
  *  Javascript Interface  *
  **************************/
-var java = {};
+java = {};
 let JSINTERFACE = window.JSInterface;
 
 /******************
@@ -689,7 +689,7 @@ java.DB.createContactsTable = () => {
 
 
 java.DB.addContact = (user_id, email, c_nick, nick, pic, desc, color , statuses) => {
-    JSINTERFACE.createContact(user_id, email, c_nick, nick, pic, desc, color, statuses);
+    JSINTERFACE.addContact(user_id, email, c_nick, nick, pic, desc, color, statuses);
 }
 
 java.DB.updateContact = (user_id, email, c_nick, nick, pic, desc, color, statuses) => {
@@ -708,15 +708,25 @@ java.DB.getAllContacts = () => {
 
 
 java.DB.getContactData = (user_id) => {
-    return JSINTERFACE.getContactData(user_id);
+    try{
+        return JSON.parse(JSINTERFACE.getContactData(user_id));
+    }catch(err){
+        java.log(err);
+        return {};
+    }
 }
 
 
 java.DB.getAllContactsData = () => {
-    return JSINTERFACE.getAllContactsData();
+    try{
+        return JSON.parse(JSINTERFACE.getAllContactsData());
+    }catch(err){
+        java.log(err);
+        return {};
+    }
 }
 
 
 java.DB.deleteContact = (user_id) => {
-    JSINTERFACE.deleteContact(user_id);
+   JSINTERFACE.deleteContact(user_id);
 }

@@ -81,11 +81,6 @@ s_add_contacts.add = function(txt){
 /**
   LOGIC CONTACTS
 **/
-var contacts = {
-  save: function(d){
-    
-  },
-  getAll: function(){
-    
-  }
-}
+contacts = function () {
+  contacts = DB.getAllContactsData();
+};
