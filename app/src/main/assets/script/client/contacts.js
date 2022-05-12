@@ -2,13 +2,14 @@
   CONTACTS CONNECTION
 **/
 
-function SOCKET__AddContact ( d ) {
-  app.debug("ws->add-contact", d);
-  app.save_json(d.user_id, d, "contacts");
+function SOCKET__AddContact ( data ) {
   
-  /* callback */
-  if(SOCKET__AddContact.callback){
-    SOCKET__AddContact.callback(d);
-    delete SOCKET__AddContact.callback;
+  if(data.status) {
+    let contact = data.data;
+    DB.addContact(contact);
+    s_contacts.addContact(contact);
+    java.toast(STRING.ADDED_CONTACT.replace("%%email%%", contact.email));
   }
+  else java.toast(RAW[data.data]);
+  
 }

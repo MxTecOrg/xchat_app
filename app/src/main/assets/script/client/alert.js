@@ -11,9 +11,18 @@ function SOCKET__Alert (raw) {
       raw.indexOf("USER_NOT_FOUND") != -1 
   ) {
     app.clear_data();
+    DB.deleteAllContacts();
     app.reload();
   }
   
-  app.debug("ws->alert", raw);
+  app.loading.hidden();
   
+}
+
+/** 
+  LISTEN TOAST SOCKET
+ **/
+function SOCKET__Toast(raw) {
+  java.toast(RAW[raw]); 
+  app.loading.hidden();
 }

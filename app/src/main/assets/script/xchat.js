@@ -12,7 +12,7 @@ app.script( PATH.js + "/sections/s-drawer.js");
 app.script( PATH.js + "/sections/s-contacts.js");
 app.script( PATH.js + "/sections/s-welcome.js");
 app.script( PATH.js + "/sections/s-login.js");
-if(TEST_ENABLE) app.script(PATH.js + "/debug-mode.js");
+if(TEST_ENABLE) app.script(PATH.js + "/debug.js");
 
 function OnStart(){
   app.screen = s_main;

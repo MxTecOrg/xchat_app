@@ -235,43 +235,9 @@ java.hasInternet = (path) => {
     else return true;
 };
 
-/*********************
- *   Set Debug Mode   *
- **********************/
-/*
-
-var DEBUG = {
-    mode: false,
-    cont: document.createElement("div")
-};
-
-java.setDebugMode = (mode) => {
-    if (mode != true) return;
-    const body = document.getElementsByTagName("body")[0];
-    DEBUG.mode = mode;
-    DEBUG.cont.style.width = "50vw";
-    DEBUG.cont.style.height = "100vh";
-    DEBUG.cont.style.position = "absolute";
-    //DEBUG.cont.style.padding = "5% 5% 5% 5%";
-    //DEBUG.cont.style.backgroundColor = "#313131";
-    DEBUG.cont.style.color = "#cc2525";
-    DEBUG.cont.style.zIndex = "9999999";
-    DEBUG.cont.style.opacity = "0.6";
-    body.appendChild(DEBUG.cont);
-};
-
-const onWebviewConsole = (mess) => {
-    if (DEBUG.mode) {
-        const m = document.createElement("div");
-        m.innerText = mess;
-        m.style.padding = "5% 5% 5% 5%";
-        DEBUG.cont.appendChild(m);
-    }
-};
-
 /* Log de Java */
 java.log = async (tag, msg) => {
-    JSINTERFACE.log(tag, msg);
+    JSINTERFACE.log(String(tag), String(msg));
 };
 
 /* app colors */
@@ -288,9 +254,10 @@ java.setAppColor = async (statusBar, navBar) => {
  *     STATICS     *
  *******************/
 try {
-    java.STATICS = JSON.parse(JSINTERFACE.getStatics());
+  java.STATICS = JSON.parse(JSINTERFACE.getStatics());
 } catch (err) {
-    java.STATICS = {};
+  console.error(err);
+  java.STATICS = {};
 }
 
 /************************
@@ -664,7 +631,7 @@ java.DB.getAllMessInRoom = (chat_id , start , end) => {
  **********/
 
 java.DB.deleteMessages = async (chat_id) => {
-    JSINTERFACE.deleteMessages(chat_id);
+    JSINTERFACE.deleteMessages(String(chat_id));
 }
 
 /*********************
@@ -676,7 +643,7 @@ java.DB.deleteMessages = async (chat_id) => {
  **********/
  
  java.DB.getRoomMessages = (chat_id) => {
-    let mess = JSINTERFACE.getRoomMessages(chat_id);
+    let mess = JSINTERFACE.getRoomMessages(String(chat_id));
     if(mess == "null") return false;
     else return mess.split(",");
  }
@@ -688,45 +655,72 @@ java.DB.createContactsTable = () => {
 }
 
 
-java.DB.addContact = (user_id, email, c_nick, nick, pic, desc, color , statuses) => {
-    JSINTERFACE.addContact(user_id, email, c_nick, nick, pic, desc, color, statuses);
+java.DB.addContact = contact => {
+    JSINTERFACE.addContact(
+      String(contact.user_id) || "x", 
+      String(contact.email) || "x", 
+      String(contact.c_nick) || "x", 
+      String(contact.nick) || "x", 
+      String(contact.pic) || "x", 
+      String(contact.desc) || "x", 
+      String(contact.color) || "x", 
+      String(contact.statuses) || "x"
+    );
 }
 
-java.DB.updateContact = (user_id, email, c_nick, nick, pic, desc, color, statuses) => {
-    JSINTERFACE.createContact(user_id, email, c_nick, nick, pic, desc, color, statuses);
+java.DB.updateContact = contact => {
+    JSINTERFACE.createContact( 
+      String(contact.user_id) || "x", 
+      String(contact.email) || "x", 
+      String(contact.c_nick) || "x", 
+      String(contact.nick) || "x", 
+      String(contact.pic) || "x", 
+      String(contact.desc) || "x", 
+      String(contact.color) || "x", 
+      String(contact.statuses) || "x"
+    );
 }
 
 
-java.DB.updateContactData = (user_id, key,value) => {
-    JSINTERFACE.updateContactData(user_id, key, value);
+java.DB.updateContactData = (user_id, key, value) => {
+    JSINTERFACE.updateContactData( String(user_id), String(key), String(value) );
 }
 
 
 java.DB.getAllContacts = () => {
-    return JSINTERFACE.getAllContacts().split(",");
+  return JSINTERFACE.getAllContacts().split(",");
 }
 
 
 java.DB.getContactData = (user_id) => {
-    try{
-        return JSON.parse(JSINTERFACE.getContactData(user_id));
-    }catch(err){
-        java.log(err);
-        return {};
-    }
+  try {
+    return JSON.parse(JSINTERFACE.getContactData( String(user_id) ));
+  } catch (err) {
+    app.debug("DB->getContactData", err);
+    return {};
+  }
 }
 
 
 java.DB.getAllContactsData = () => {
-    try{
-        return JSON.parse(JSINTERFACE.getAllContactsData());
-    }catch(err){
-        java.log(err);
-        return {};
-    }
+  try {
+    return JSON.parse(JSINTERFACE.getAllContactsData());
+  } catch (err) {
+    app.debug("DB->getAllContactsData", err);
+    return {};
+  }
 }
 
 
 java.DB.deleteContact = (user_id) => {
-   JSINTERFACE.deleteContact(user_id);
+  JSINTERFACE.deleteContact(String(user_id));
+}
+
+java.DB.deleteAllContacts = () => {
+  try {
+    for(let user_id of java.DB.getAllContacts()) java.DB.deleteContact(user_id);
+  }
+  catch (err) {
+    app.debug("DB->deleteAllContacts", err);
+  }
 }

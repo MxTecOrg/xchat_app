@@ -3,9 +3,10 @@
 **/
 ROOMS = {};
 
-var LoadRooms = async function () {
-  var rooms = java.listDirSync(PATH.data + "/Rooms").data;
-  /** test **/
+/** LOAD ROOMS FROM DB **/
+async function LoadRooms () {
+  var rooms = java.listDirSync(PATH.data + "/rooms").data;
+  /** test /
   CreateRoomUI({
     name: "El Cabra",
     messages: [
@@ -17,21 +18,23 @@ var LoadRooms = async function () {
     name: "Fulanito",
     messages: []
   });
-  /** test **/
+  / test **/
   if(rooms[0]) for(var room of rooms) {
     try {
       var f = JSON.parse( 
-        java.readFileSync(PATH.data + "/Rooms" + "/" + room) 
+        java.readFileSync(PATH.data + "/rooms" + "/" + room) 
       );
       ROOMS[f.chat_id] = f;
       CreateRoomUI(f);
-      java.log("Read Room", "Room " + f.chat_id + " leida correctamente.");
+      java.log("room->read", "Room " + f.chat_id + " leida correctamente.");
+      app.debug("room->loaded", f.chat_id);
     }
     catch(e){
-      app.debug("Read Room", ""+e);
+      app.debug("room->read", e);
     }
   }
 };
+
 
 function CreateRoomUI (room) {
   let smss = room.messages;
@@ -60,5 +63,13 @@ function CreateRoomUI (room) {
 }
 
 function SOCKET__GetRoomData (data) {
-  app.debug("ws-getroomdata", data);
+  
+}
+
+function SOCKET__NewPv (data) {
+  if(!data.messages) data.messages = [];
+  s_chat.setChat(data);
+  OnBack();
+  s_chat.open();
+  app.loading.hidden();
 }

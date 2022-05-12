@@ -31,13 +31,33 @@ function s_contacts () {
   
   li_add_contact.onclick = function(){s_add_contacts.open()};
   
-  s_contacts.list_view = list_view;
+  s_contacts.list = list_view;
   s_add_contacts();
+  contacts();
 }
 
 s_contacts.open = function(){ s_contacts.layout.open() };
 s_contacts.close = function(){ s_contacts.layout.close() };
-
+s_contacts.addContact = function(contact){
+  let picture = document.createElement("div");
+  picture.setAttribute("style", 
+    "width: 100%;" +
+    "height: 100%;"+
+    "border-radius: 100px;"+
+    "background: " + contact.color
+  );
+  let item = s_contacts.list.addItem(String(contact.c_nick), contact.email, picture);
+  item = s_contacts.list.getItem(item);
+  item.dataset.userId = String(contact.user_id);
+  item.dataset.email = contact.email;
+  item.dataset.nick = contact.nick;
+  item.onclick = s_contacts.onclick;
+};
+s_contacts.onclick = function(event){
+  let item = event.currentTarget;
+  app.loading.show();
+  SOCKET.emit("start-pv", {user_id: Number(item.dataset.userId)});
+};
 
 /**
   ADD CONTACTS SCREEN
@@ -73,7 +93,6 @@ s_add_contacts.close = function(){ s_add_contacts.layout.close() };
 s_add_contacts.add = function(txt){
   if(!txt) {
     txt = s_add_contacts.input.input.value;
-    app.loading.show();
     SOCKET.emit("add-contact", txt);
   }
 };
@@ -83,4 +102,9 @@ s_add_contacts.add = function(txt){
 **/
 contacts = function () {
   contacts = DB.getAllContactsData();
+  for(let i in contacts){
+    let contact = contacts[i];
+    app.debug("load-contacts", contact);
+    s_contacts.addContact(contact);
+  }
 };

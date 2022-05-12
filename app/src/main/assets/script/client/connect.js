@@ -38,14 +38,19 @@ function Connect () {
     app.debug("ws->connect", "DISCONNECT");
     txt_main_loading("Conectando");
   });
+  SOCKET.on("error", s => java.toast(s));
   
   /** listeners **/
   SOCKET.on("alert", SOCKET__Alert);
-  SOCKET.on("toast", function(s){java.toast(RAW[s])});
+  SOCKET.on("toast", SOCKET__Toast);
   SOCKET.on("load-user", SOCKET__LoadUser);
   SOCKET.on("add-contact", SOCKET__AddContact);
   SOCKET.on("get-room-data", SOCKET__GetRoomData);
+  SOCKET.on("new-pv", SOCKET__NewPv);
   SOCKET.on("get-room-mess", SOCKET__GetRoomMessage);
+  
+  /** global **/
+  SOCKET.onAny((event, data) => app.debug("ws->" + event, data));
   
   /* cargar chats de la DB */
   LoadRooms();

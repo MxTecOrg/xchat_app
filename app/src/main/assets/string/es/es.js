@@ -28,6 +28,7 @@ json = {
   CONTACTS: "Contactos",
   CREATE_GROUP: "Crear Grupo",
   ADD_CONTACT: "Añadir Contacto",
+  ADDED_CONTACT: "El contacto %%email%% a sido añadido correctamente.",
   ADD_CONTACT_INPUT: "Correo",
   
   

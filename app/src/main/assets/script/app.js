@@ -17,13 +17,18 @@ app.script = function( url, callback ) {
   script = null;
 };
 
+
 // inyect css //
 app.css = function(rule, props) {document.styleSheets[0].addRule(rule, props)};
+
 
 // debug //
 app.debug = function(title, txt){
   if(txt) title += "  ➤";
   else { txt = title; title = "" }
+  title = title
+     .replace(/\-\-\>/, " ➔ ")
+     .replace(/\-\>/, " ↦ ");
   java.log(title, txt); //XChat only!
   console.log(title, txt);
   return txt;
