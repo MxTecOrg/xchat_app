@@ -1,7 +1,8 @@
 function s_login () {
-  let lay = dom.create("div");
+  let lay = DOM.createElement("div");
   lay.id = "login-layout";
-  dom.add(lay);
+  DOM.body.appendChild(lay);
+  
   lay = Drawer.UI("login-layout", {
     draggable: false,
     position: "right",
@@ -14,55 +15,55 @@ function s_login () {
   lay.drawer.style.height = "100%";
   
   // elements register //
-  let register_layout = dom.create("div");
-  let register_body = dom.create("div");
-  let register_head = dom.create("h2");
-  let register_submit = dom.create("button");
-  let register_change = dom.create("a");
+  let register_layout = DOM.createElement("div");
+  let register_body = DOM.createElement("div");
+  let register_head = DOM.createElement("h2");
+  let register_submit = DOM.createElement("button");
+  let register_change = DOM.createElement("a");
   
   register_change.href = "#";
-  register_change.dom.set("class", "login-toggle");
-  register_layout.dom.set("class", "login-layout");
-  register_head.dom.set("class", "login-layout--head");
-  register_body.dom.set("class", "login-layout--body");
-  register_submit.dom.set("class", "login-layout--submit");
+  register_change.setAttribute("class", "login-toggle");
+  register_layout.setAttribute("class", "login-layout");
+  register_head.setAttribute("class", "login-layout--head");
+  register_body.setAttribute("class", "login-layout--body");
+  register_submit.setAttribute("class", "login-layout--submit");
   
   register_head.innerText = STRING.REGISTER;
   register_submit.innerText = STRING.SEND;
   
   // elements auth //
-  let auth_layout = dom.create("div");
-  let auth_body = dom.create("div");
-  let auth_head = dom.create("h2");
-  let auth_submit = dom.create("button");
-  let auth_change = dom.create("a");
+  let auth_layout = DOM.createElement("div");
+  let auth_body = DOM.createElement("div");
+  let auth_head = DOM.createElement("h2");
+  let auth_submit = DOM.createElement("button");
+  let auth_change = DOM.createElement("a");
   
   auth_change.href = "#";
-  auth_change.dom.set("class", "login-toggle");
-  auth_layout.dom.set("class", "login-layout hidden");
+  auth_change.setAttribute("class", "login-toggle");
+  auth_layout.setAttribute("class", "login-layout hidden");
   auth_layout.style.display = "none";
-  auth_head.dom.set("class", "login-layout--head");
-  auth_body.dom.set("class", "login-layout--body");
-  auth_submit.dom.set("class", "login-layout--submit");
+  auth_head.setAttribute("class", "login-layout--head");
+  auth_body.setAttribute("class", "login-layout--body");
+  auth_submit.setAttribute("class", "login-layout--submit");
   
   auth_submit.innerText = STRING.ACCESS;
   auth_head.innerText = STRING.LOGIN;
   
   //elements verify
-  let verify_layout = dom.create("div");
-  let verify_head = dom.create("h2");
-  let verify_body = dom.create("div");
-  let verify_txt = dom.create("small");
-  let verify_re = dom.create("a");
+  let verify_layout = DOM.createElement("div");
+  let verify_head = DOM.createElement("h2");
+  let verify_body = DOM.createElement("div");
+  let verify_txt = DOM.createElement("small");
+  let verify_re = DOM.createElement("a");
   
   verify_re.href = "#";
-  verify_re.dom.set("class", "login-toggle");
+  verify_re.setAttribute("class", "login-toggle");
   verify_re.innerText = STRING.RESEND_TOKEN;
-  verify_layout.dom.set("class", "login-layout hidden");
+  verify_layout.setAttribute("class", "login-layout hidden");
   verify_layout.style.display = "none";
-  verify_head.dom.set("class", "login-layout--head");
+  verify_head.setAttribute("class", "login-layout--head");
   verify_head.innerText = STRING.VERIFY_TOKEN;
-  verify_body.dom.set("class", "login-layout--body");
+  verify_body.setAttribute("class", "login-layout--body");
   
   /* components edittext */
   let r_name = create_input(STRING.USER + ":");
@@ -74,7 +75,7 @@ function s_login () {
   let v_token = create_input(STRING.TOKEN + ":");
   
   function create_input (txt) {
-    let input = new EditTextUI(dom.create("div"));
+    let input = new EditTextUI(DOM.createElement("div"));
     input.placeholder = txt;
     return input;
   }
@@ -94,7 +95,7 @@ function s_login () {
     app.wall.show();
     
     // animation alternate auth/register
-    dom.animate(function(n){
+    app.animate(function(n){
         let traslate = 0;
         if(n < 0.5) {
           traslate = 400 * n;
@@ -130,14 +131,30 @@ function s_login () {
   
   
   // add layout
-  register_body.dom.add([ r_name.layout, r_email.layout, r_pass.layout, r_rpass.layout ]);
-  register_layout.dom.add([register_head, register_body, register_submit, register_change]);
+  register_body.appendChild(r_name.layout);
+  register_body.appendChild(r_email.layout);
+  register_body.appendChild(r_pass.layout);
+  register_body.appendChild(r_rpass.layout);
+  
+  register_layout.appendChild(register_head);
+  register_layout.appendChild(register_body);
+  register_layout.appendChild(register_submit);
+  register_layout.appendChild(register_change);
  
-  auth_body.dom.add([ a_name.layout, a_pass.layout ]);
-  auth_layout.dom.add([ auth_head, auth_body, auth_submit, auth_change ]);
+  auth_body.appendChild(a_name.layout);
+  auth_body.appendChild(a_pass.layout);
  
-  verify_body.dom.add([verify_txt, v_token.layout]);
-  verify_layout.dom.add([verify_head, verify_body, verify_re]);
+  auth_layout.appendChild(auth_head);
+  auth_layout.appendChild(auth_body);
+  auth_layout.appendChild(auth_submit);
+  auth_layout.appendChild(auth_change);
+ 
+  verify_body.appendChild(verify_txt);
+  verify_body.appendChild(v_token.layout);
+  
+  verify_layout.appendChild(verify_head);
+  verify_layout.appendChild(verify_body);
+  verify_layout.appendChild(verify_re);
  
   lay.drawer.appendChild(auth_layout);
   lay.drawer.appendChild(register_layout);

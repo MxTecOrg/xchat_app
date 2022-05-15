@@ -1,6 +1,6 @@
 function s_main () {
-  let lay = dom.get("#main-screen");
-  let tabs = new TabLayout(document.getElementById("tabs-main"));
+  let lay = DOM.getElementById("main-screen");
+  let tabs = new TabLayout(DOM.getElementById("tabs-main"));
   let toolbar = lay.querySelector(".tool-bar");
   
   lay.style.display = "flex";

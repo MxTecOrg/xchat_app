@@ -4,9 +4,9 @@
 
 function s_welcome () {
   // container layout //
-  let lay = dom.create("div");
+  let lay = DOM.createElement("div");
   lay.id = "welcome-layout";
-  dom.add(lay);
+  DOM.body.appendChild(lay);
 
   lay = Drawer.UI("welcome-layout", {
     duration: 0,
@@ -22,9 +22,9 @@ function s_welcome () {
   };
   
   // switch dark/light theme
-  let lay_toggle = dom.create("i");
+  let lay_toggle = DOM.createElement("i");
   let toggle_on = theme.is == "dark";
-  lay_toggle.dom.set("class", "w-toggle fa fa-" + (toggle_on?"sun":"moon") + "-o fa-lg");
+  lay_toggle.setAttribute("class", "w-toggle fa fa-" + (toggle_on?"sun":"moon") + "-o fa-lg");
   s_welcome.toggle_theme = lay_toggle;
  
   lay_toggle.onclick = function(e){
@@ -33,19 +33,19 @@ function s_welcome () {
     if(!toggle_on) {
       theme.dark();
       app.save_data("theme", "dark");
-      lay_toggle.dom.set("class", "w-toggle fa fa-sun-o fa-lg");
+      lay_toggle.setAttribute("class", "w-toggle fa fa-sun-o fa-lg");
     }
     else {
       theme.light();
       app.save_data("theme", "light");
-      lay_toggle.dom.set("class", "w-toggle fa fa-moon-o fa-lg");
+      lay_toggle.setAttribute("class", "w-toggle fa fa-moon-o fa-lg");
     }
     toggle_on = !toggle_on;
   };
   
   // top layout //
-  let lay_top = dom.create("div");
-  let box_lay_top = dom.create("div");
+  let lay_top = DOM.createElement("div");
+  let box_lay_top = DOM.createElement("div");
   let sections_list = [];
   let progress_list = [];
   
@@ -61,45 +61,46 @@ function s_welcome () {
   
   // crear seccion //
   function create_section(url, txt){
-    let div = dom.create("div");
-    let img = dom.create("img");
-    let info = dom.create("p");
-    let circle = dom.create("div");
+    let div = DOM.createElement("div");
+    let img = DOM.createElement("img");
+    let info = DOM.createElement("p");
+    let circle = DOM.createElement("div");
     
-    circle.dom.set("class", "circle-disabled");
-    div.dom.set("class", "welcome-section");
+    circle.setAttribute("class", "circle-disabled");
+    div.setAttribute("class", "welcome-section");
     progress_list.push(circle);
     sections_list.push(div);
     
     img.src = url;
     info.innerText = txt;
-    div.dom.add([img, info]);
-    box_lay_top.dom.add(div);
+    div.appendChild(img);
+    div.appendChild(info);
+    box_lay_top.appendChild(div);
   }
   
   // bottom layout //
-  let lay_bottom = dom.create("div");
+  let lay_bottom = DOM.createElement("div");
   lay_bottom.id = "welcome-layout--bottom";
-  lay_bottom.dom.add(progress_list);
+  for(let element of progress_list) lay_bottom.appendChild(element);
   
   lay.on("open", function(){
     
-    dom.animate(function(n){
+    app.animate(function(n){
       lay_bottom.style.top = 60 * ( 1 - n ) + "px";
       lay_bottom.style.filter = "opacity(" + n + ")";
     }, 700).start();
     
-    dom.animate(function(n){
+    app.animate(function(n){
       lay_top.style.left = 60 * ( 1 - n ) + "px";
       lay_top.style.filter = "opacity(" + n + ")";
     }, 700).start();
   });
 
   // add layouts //
-  lay_top.dom.add(box_lay_top);
+  lay_top.appendChild(box_lay_top);
   lay.add(lay_top);
   lay.add(lay_bottom);
-  dom.add(lay_toggle);
+  DOM.body.appendChild(lay_toggle);
   
   lay.open(); // show //
   
@@ -150,7 +151,7 @@ function s_welcome () {
     let secOut = sections_list[in_section - mov];
     let secIn = sections_list[in_section];
     
-    dom.animate(function(n){
+    app.animate(function(n){
        lay_top.scrollLeft = from - n * distance;
        if(mov) {
          cirIn.style.background = "var(--app-control-color)";

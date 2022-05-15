@@ -7,7 +7,7 @@ class TabLayout {
     let width = screen.width;
     let nav = layout.querySelector(".tab-layout--nav");
     let scroller = layout.querySelector(".tab-layout--body");
-    let line = document.createElement("span");
+    let line = DOM.createElement("span");
     
     let tabs = nav.querySelectorAll("button");
     let layers = scroller.querySelectorAll("div");

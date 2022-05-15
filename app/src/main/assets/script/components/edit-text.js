@@ -4,9 +4,9 @@
 
 class EditTextUI {
   constructor (element) {
-    let input = document.createElement("input");
-    let label = document.createElement("label");
-    let line = document.createElement("span");
+    let input = DOM.createElement("input");
+    let label = DOM.createElement("label");
+    let line = DOM.createElement("span");
     
     element.setAttribute("class", "edit-text");
     input.setAttribute("class", "edit-text__input");

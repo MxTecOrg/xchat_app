@@ -19,17 +19,17 @@ class ListView {
   removeItem( id ) {return this.layout.removeChild(this.elements[id])}
   addItem(title, txt, icon) {
     let n_child = this.elements.length;
-    let layer = document.createElement("li");
-    let icon_layer = document.createElement("span");
-    let text_layer = document.createElement("div");
-    let text_title = document.createElement("strong");
-    let text_text = document.createElement("p");
+    let layer = DOM.createElement("li");
+    let icon_layer = DOM.createElement("span");
+    let text_layer = DOM.createElement("div");
+    let text_title = DOM.createElement("strong");
+    let text_text = DOM.createElement("p");
     
     text_title.innerText = title?title:"";
     text_text.innerText = txt?txt:"";
     layer.setAttribute("class", "list-view--l");
     if(typeof icon == "string") {
-      let icon_el = document.createElement("i");
+      let icon_el = DOM.createElement("i");
       icon_el.setAttribute("class", "fa fa-" + icon);
       icon_layer.appendChild(icon_el);
     }
@@ -45,7 +45,7 @@ class ListView {
     return n_child;
   }
   addDivider() {
-    let divider = document.createElement("li");
+    let divider = DOM.createElement("li");
     divider.setAttribute("class", "list-view--divider");
     this.layout.appendChild(divider);
     return divider;

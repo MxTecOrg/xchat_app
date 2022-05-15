@@ -17,6 +17,7 @@ if(TEST_ENABLE) app.script(PATH.js + "/debug.js");
 function OnStart(){
   app.screen = s_main;
   DB = java.DB;
+  DOM = document;
   
   // SQL //
   DB.createContactsTable();
@@ -48,10 +49,10 @@ function InitMainApp(){
   delete window.s_welcome;
   delete window.s_login;
   
-  s_main(); app.debug("init-main", "main screen loaded"); // main screen init
-  s_chat(); app.debug("init-main", "chat screen loaded"); // chat screen init
-  s_drawer(); app.debug("init-main", "drawer screen loaded"); // drawer init
-  s_contacts(); app.debug("init-main", "contacts screen loaded"); // contacts screen init
+  s_main(); app.debug("init->main", "screen loaded"); // main screen init
+  s_chat(); app.debug("init->chat", "screen loaded"); // chat screen init
+  s_drawer(); app.debug("init->drawer", "screen loaded"); // drawer init
+  s_contacts(); app.debug("init->contacts", "screen loaded"); // contacts screen init
   
   /* load app files */
   java.createDir(PATH.data + "/rooms");
@@ -62,8 +63,8 @@ function InitMainApp(){
 }
 
 function InitWelcome () {
-  s_welcome(); app.debug("init-main", "welcome screen loaded");
-  s_login(); app.debug("init-main", "login screen loaded");
+  s_welcome(); app.debug("init->welcome", "screen loaded");
+  s_login(); app.debug("init->login", "screen loaded");
 }
 
 

@@ -14,8 +14,8 @@ function s_chat () {
     opacity: 0,
   });
 
-  let layer_container = document.getElementById("chat-layercontainer");
-  let textToolBar = document.querySelector("#chat-screen .tool-bar--center strong");
+  let layer_container = DOM.getElementById("chat-layercontainer");
+  let textToolBar = DOM.querySelector("#chat-screen .tool-bar--center strong");
   let input = layout.drawer.querySelector(".action-bar--input");
   
   let room = null;
@@ -24,7 +24,7 @@ function s_chat () {
   layout.on("open", function(){ app.screen = s_chat });
   layout.on("close", function(){ app.screen = s_main });
   s_chat.layout = layout;
-  document.styleSheets[0].addRule(".action-bar--input:empty:before", "content:\"" + STRING.CHAT_INPUT + "\"");
+  DOM.styleSheets[0].addRule(".action-bar--input:empty:before", "content:\"" + STRING.CHAT_INPUT + "\"");
   
   /* CREATE CHATS */
   s_chat.setChat = function(_room){
@@ -32,7 +32,7 @@ function s_chat () {
     last_room = room;
     room = _room;
     if(!room.layout) {
-      room.layout = document.createElement("div");
+      room.layout = DOM.createElement("div");
       for (let sms of room.messages) room.layout.appendChild(createSMS(sms.message, sms.isuser));
       layer_container.appendChild(room.layout);
     }
@@ -43,8 +43,8 @@ function s_chat () {
   };
   
   function createSMS (txt, is_yoursms) {
-    let layer = document.createElement("div");
-    let sms = document.createElement("div");
+    let layer = DOM.createElement("div");
+    let sms = DOM.createElement("div");
     
     layer.setAttribute("class", "sms-layer " + (is_yoursms?"m":"o") + "sms-layer");
     sms.setAttribute("class", "sms");

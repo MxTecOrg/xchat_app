@@ -39,7 +39,7 @@ function s_contacts () {
 s_contacts.open = function(){ s_contacts.layout.open() };
 s_contacts.close = function(){ s_contacts.layout.close() };
 s_contacts.addContact = function(contact){
-  let picture = document.createElement("div");
+  let picture = DOM.createElement("div");
   picture.setAttribute("style", 
     "width: 100%;" +
     "height: 100%;"+
@@ -74,7 +74,7 @@ function s_add_contacts () {
     opacity: 0,
   });
   layout.drawer.querySelector(".tool-bar--center > h2").innerText = STRING.ADD_CONTACT;
-  let input = new EditTextUI( document.getElementById("add-contacts--input"));
+  let input = new EditTextUI( DOM.getElementById("add-contacts--input"));
   let send = layout.drawer.querySelector("i.fa-check");
   layout.drawer.style.alignItems = "center";
   input.placeholder = STRING.ADD_CONTACT_INPUT;

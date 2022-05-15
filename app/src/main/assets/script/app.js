@@ -21,6 +21,46 @@ app.script = function( url, callback ) {
 // inyect css //
 app.css = function(rule, props) {document.styleSheets[0].addRule(rule, props)};
 
+// animation //
+app.animate = function(draw, duration, timing) {
+  var start,
+  running = true,
+  finish = function() {};
+  if (!timing) timing = function(n) {
+    return n;
+  };
+
+  function animate(time) {
+    // timeFraction va de 0 a 1
+    var timeFraction = (time - start) / duration;
+    if (timeFraction > 1) timeFraction = 1;
+
+    // calcular el estado actual de la animación
+    var progress = timing(timeFraction);
+
+    draw(progress); // dibujar
+
+    if (timeFraction < 1 && running) window.requestAnimationFrame(animate);
+    else finish();
+  }
+
+  return {
+    start: function() {
+      running = true;
+      start = performance.now();
+      window.requestAnimationFrame(animate);
+      return this;
+    },
+    stop: function() {
+      running = false;
+      return this;
+    },
+    finish: function(fn) {
+      finish = fn;
+      return this;
+    }
+  };
+};
 
 // debug //
 app.debug = function(title, txt){
@@ -70,7 +110,7 @@ app.loading = {
     this.content.innerText = s;
     lay.style.filter = "opacity(0)";
     lay.style.display = "flex";
-    dom.animate(function(porc){
+    app.animate(function(porc){
       lay.style.filter = "opacity(" + porc + ")";
       lay.style.transform = "scale(" + (1.5 - 0.5 * porc ) + ")";
     }, 500).start();
@@ -78,7 +118,7 @@ app.loading = {
   
   hidden: function(){
     let lay = this.layout;
-    dom.animate(function(porc){
+    app.animate(function(porc){
       lay.style.filter = "opacity(" + (1 - porc) + ")";
       lay.style.transform = "scale(" + (1.5 - 0.5 * (1 - porc) ) + ")";
     }, 200)
